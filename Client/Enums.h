@@ -6,6 +6,7 @@ enum class SceneType
 	GameScene,
 	EditScene,
 	MapEditScene,
+	MenuScene,
 };
 
 enum LAYER_TYPE

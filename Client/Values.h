@@ -1,4 +1,11 @@
 #pragma once
+// 게임이름
+const wstring GAME_TITLE = L"TheLegendOfBeak";
+
+// 최대 윈도우 크기 (4:3 비율)
+const int32 MAX_WIN_WIDTH = 1600;
+const int32 MAX_WIN_HEIGHT = 1200;
+
 // 게임 좌표당 크기
 const int32 GPixcelWidth = 32;
 const int32 GPixcelHeight = 32;

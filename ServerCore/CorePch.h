@@ -1,11 +1,6 @@
 #pragma once
 
-#include "Types.h"
-#include "CoreMacro.h"
-#include "CoreTLS.h"
-#include "CoreGlobal.h"
-
-
+#include <string>
 #include <vector>
 #include <list>
 #include <queue>
@@ -23,6 +18,11 @@
 #include <chrono>
 #include <iostream>
 using namespace std;
+
+#include "Types.h"
+#include "CoreMacro.h"
+#include "CoreTLS.h"
+#include "CoreGlobal.h"
 
 #include <assert.h>
 #include "SocketUtils.h"

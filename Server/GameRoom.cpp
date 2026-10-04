@@ -19,7 +19,7 @@ GameRoom::~GameRoom()
 
 void GameRoom::Init()
 {
-	_tilemap.LoadFile(L"C:\\git\\study_cpp_rpg_game_client_server\\Resources\\Tilemap\\Tilemap_01.txt");
+	_tilemap.LoadFile(L"C:\\git\\" + GAME_TITLE + L"\\Resources\\Tilemap\\Tilemap_01.txt");
 
 	for (int32 i = 0; i < 1; ++i)
 	{

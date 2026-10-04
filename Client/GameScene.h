@@ -47,7 +47,6 @@ public:
 	template<typename T>
 	T* SpawnObject(Vec2Int pos)
 	{
-		// 컴파일 타임에 T가 GameObject를 상속받는지 검사하는 코드.
 		auto isGameObject = std::is_convertible_v<T*, GameObject*>;
 		assert(isGameObject);
 

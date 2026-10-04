@@ -8,7 +8,12 @@ void Utils::DrawText(HDC hdc, Pos pos, const wstring& str)
 
 void Utils::DrawRect(HDC hdc, Pos pos, int32 w, int32 h)
 {
-	::Rectangle(hdc, static_cast<int32>(pos.x - w / 2), static_cast<int32>(pos.y - h / 2), static_cast<int32>(pos.x + w / 2), static_cast<int32>(pos.y + h / 2));
+	::Rectangle(hdc
+		, static_cast<int32>(pos.x - w / 2)
+		, static_cast<int32>(pos.y - h / 2)
+		, static_cast<int32>(pos.x + w / 2)
+		, static_cast<int32>(pos.y + h / 2)
+	);
 }
 
 void Utils::DrawCircle(HDC hdc, Pos pos, int32 radius)
@@ -92,6 +97,24 @@ void Utils::DrawRectAlpha(HDC hdc, Pos pos, int32 w, int32 h, COLORREF color, BY
 	::SelectObject(memDC, oldBmp);
 	::DeleteObject(bmp);
 	::DeleteDC(memDC);
+}
+
+void Utils::DrawRectBorder(HDC hdc, Pos pos, int32 w, int32 h, COLORREF color, int32 thickness)
+{
+	// PS_INSIDEFRAME: keep thick borders inside the rect
+	HPEN pen = ::CreatePen(PS_INSIDEFRAME, thickness, color);
+	HPEN oldPen = (HPEN)::SelectObject(hdc, (HGDIOBJ)pen);
+	// NULL_BRUSH: draw border only, leave inside untouched
+	HBRUSH oldBrush = (HBRUSH)::SelectObject(hdc, ::GetStockObject(NULL_BRUSH));
+
+	int32 left = static_cast<int32>(pos.x - w / 2);
+	int32 top = static_cast<int32>(pos.y - h / 2);
+
+	::Rectangle(hdc, left, top, left + w, top + h);
+
+	::SelectObject(hdc, oldBrush);
+	::SelectObject(hdc, oldPen);
+	::DeleteObject(pen);
 }
 
 void Utils::ReadBmp(const wstring& path)

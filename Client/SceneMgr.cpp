@@ -3,6 +3,7 @@
 #include "GameScene.h"
 #include "EditScene.h"
 #include "MapEditScene.h"
+#include "MenuScene.h"
 #include "MyPlayer.h"
 
 SceneMgr::SceneMgr()
@@ -54,6 +55,9 @@ void SceneMgr::ChangeScene(SceneType sceneType)
 		break;
 	case SceneType::MapEditScene:
 		newScene = new MapEditScene();
+		break;
+	case SceneType::MenuScene:
+		newScene = new MenuScene();
 		break;
 	}
 

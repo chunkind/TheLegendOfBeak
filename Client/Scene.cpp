@@ -39,7 +39,6 @@ void Scene::Update()
 {
 	float deltaTime = DT;
 
-	// บนป็
 	for (const vector<Actor*> actors : _actors)
 		for (Actor* actor : actors)
 			actor->Tick();

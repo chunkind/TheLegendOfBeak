@@ -20,6 +20,8 @@ public:
 
 	static void DrawRectAlpha(HDC hdc, Pos pos, int32 w, int32 h, COLORREF color, BYTE alpha);
 
+	static void DrawRectBorder(HDC hdc, Pos pos, int32 w, int32 h, COLORREF color, int32 thickness = 1);
+
 	static void ReadBmp(const wstring& path);
 };
 

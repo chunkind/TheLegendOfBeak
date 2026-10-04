@@ -6,10 +6,6 @@
 HINSTANCE hInst;
 HWND g_hWnd;
 
-// 최대 윈도우 크기 (4:3 비율)
-const int32 MAX_WIN_WIDTH = 1600;
-const int32 MAX_WIN_HEIGHT = 1200;
-
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -95,10 +91,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
     hInst = hInstance;
 
-    RECT windowRect = { 0, 0, 800, 600 };
+    RECT windowRect = { 0, 0, GWinSizeX, GWinSizeY };
     ::AdjustWindowRect(&windowRect, WS_OVERLAPPEDWINDOW, false);
 
-    g_hWnd = ::CreateWindowW(L"key", L"Client", WS_OVERLAPPEDWINDOW,
+    g_hWnd = ::CreateWindowW(L"key", GAME_TITLE.c_str(), WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT, 0, windowRect.right - windowRect.left, windowRect.bottom - windowRect.top, nullptr, nullptr, hInstance, nullptr);
 
     if (!g_hWnd)

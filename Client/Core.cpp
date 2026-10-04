@@ -36,11 +36,11 @@ void Core::Init(HWND hwnd)
 	GET(TimeMgr)->Init();
 	GET(InputMgr)->Init(hwnd);
 	GET(SceneMgr)->Init();
-	GET(ResMgr)->Init(hwnd, fs::path(L"C:\\git\\study_cpp_rpg_game_client_server\\Resources"));
+	GET(ResMgr)->Init(hwnd, fs::path(L"C:\\git\\"+ GAME_TITLE + L"\\Resources"));
 
 	GET(SoundMgr)->Init(hwnd);
 
-	GET(SceneMgr)->ChangeScene(SceneType::GameScene);
+	GET(SceneMgr)->ChangeScene(SceneType::MenuScene);
 
 	GET(NetMgr)->Init();
 }
@@ -74,7 +74,6 @@ void Core::Render()
 	RECT clientRect;
 	::GetClientRect(_hwnd, &clientRect); // 현재 윈도우 클라이언트 영역 크기
 	::SetStretchBltMode(hdc, HALFTONE); // 확대 시 화질 보정 (픽셀 깨짐 방지)
-	::StretchBlt(hdc, 0, 0, clientRect.right, clientRect.bottom,
-		hdcBack, 0, 0, _rect.right, _rect.bottom, SRCCOPY);
+	::StretchBlt(hdc, 0, 0, clientRect.right, clientRect.bottom, hdcBack, 0, 0, _rect.right, _rect.bottom, SRCCOPY);
 	::PatBlt(hdcBack, 0, 0, _rect.right, _rect.bottom, WHITENESS); // 백버퍼 초기화 (흰색)
 }
