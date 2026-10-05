@@ -1,9 +1,43 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Utils.h"
 
-void Utils::DrawText(HDC hdc, Pos pos, const wstring& str)
+void Utils::DrawText(HDC hdc, Pos pos, const wstring& str, bool bold, int32 fontSize, COLORREF color)
 {
-	::TextOut(hdc, static_cast<int32>(pos.x), static_cast<int32>(pos.y), str.c_str(), static_cast<int32>(str.size()));
+	// 1. 폰트 생성 (높이를 음수로 주면 글자 자체의 높이 기준)
+	HFONT hFont = ::CreateFont(
+		-fontSize,              // cHeight : 크기 조절은 이 값으로
+		0,                      // cWidth  : 0이면 자동
+		0, 0,                   // 기울기 각도
+		bold ? FW_BOLD : FW_NORMAL, // 굵기 (bold 인자로 선택)
+		FALSE, FALSE, FALSE,    // 기울임, 밑줄, 취소선
+		HANGUL_CHARSET,
+		OUT_DEFAULT_PRECIS,
+		CLIP_DEFAULT_PRECIS,
+		DEFAULT_QUALITY,
+		DEFAULT_PITCH | FF_DONTCARE,
+		L"Malgun Gothic");
+
+	// 2. DC에 선택하고 기존 폰트 보관
+	HFONT hOldFont = (HFONT)::SelectObject(hdc, hFont);
+
+	// 3. 글자 배경 투명 + 글자색 지정
+	int32 oldBkMode = ::SetBkMode(hdc, TRANSPARENT);
+	COLORREF oldColor = ::SetTextColor(hdc, color);
+
+	// 4. 출력
+	::TextOut(hdc
+		, static_cast<int32>(pos.x)
+		, static_cast<int32>(pos.y), str.c_str()
+		, static_cast<int32>(str.size())
+	);
+
+	// 5. 원상 복구
+	::SetTextColor(hdc, oldColor);
+	::SetBkMode(hdc, oldBkMode);
+	::SelectObject(hdc, hOldFont);
+
+	// 6. 폰트 삭제 (안 하면 GDI 핸들 누수)
+	::DeleteObject(hFont);
 }
 
 void Utils::DrawRect(HDC hdc, Pos pos, int32 w, int32 h)

@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "GameRoom.h"
 #include "Player.h"
 #include "Monster.h"
@@ -19,7 +19,7 @@ GameRoom::~GameRoom()
 
 void GameRoom::Init()
 {
-	_tilemap.LoadFile(L"C:\\git\\" + GAME_TITLE + L"\\Resources\\Tilemap\\Tilemap_01.txt");
+	_tilemap.LoadFile(L"C:\\git\\TheLegendOfBeak\\Resources\\Tilemap\\Tilemap_01.txt");
 
 	for (int32 i = 0; i < 1; ++i)
 	{

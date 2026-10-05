@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Scene.h"
 #include <type_traits>
 
@@ -26,6 +26,7 @@ public:
 	GameScene();
 	virtual ~GameScene() override;
 
+	virtual void PreLoad(HWND hwnd);
 	virtual void Init() override;
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;

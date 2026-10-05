@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Core.h"
 #include "TimeMgr.h"
 #include "InputMgr.h"
@@ -38,11 +38,11 @@ void Core::Init(HWND hwnd)
 	GET(SceneMgr)->Init();
 	GET(ResMgr)->Init(hwnd, fs::path(L"C:\\git\\"+ GAME_TITLE + L"\\Resources"));
 
-	GET(SoundMgr)->Init(hwnd);
+	//GET(SoundMgr)->Init(hwnd);
 
 	GET(SceneMgr)->ChangeScene(SceneType::MenuScene);
 
-	GET(NetMgr)->Init();
+	//GET(NetMgr)->Init();
 }
 
 void Core::Update()
@@ -50,7 +50,7 @@ void Core::Update()
 	GET(TimeMgr)->Update();
 	GET(InputMgr)->Update();
 	GET(SceneMgr)->Update();
-	GET(NetMgr)->Update();
+	//GET(NetMgr)->Update();
 }
 
 void Core::Render()

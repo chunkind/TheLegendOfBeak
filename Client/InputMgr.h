@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 enum class KeyType
 {
@@ -10,6 +10,7 @@ enum class KeyType
 	Left = VK_LEFT,
 	Right = VK_RIGHT,
 	SpaceBar = VK_SPACE,
+	Enter = VK_RETURN,
 
 	KEY_1 = '1',
 	KEY_2 = '2',
@@ -77,13 +78,13 @@ public:
 	void Init(HWND hwnd);
 	void Update();
 
-	// ´©¸£°í ÀÖÀ» ¶§
+	// ëˆ„ë¥´ê³  ìˆì„ ë•Œ
 	bool GetButton(KeyType key) { return GetState(key) == KeyState::Press; }
 
-	// ¸Ç Ã³À½ ´­·¶À» ¶§
+	// ë§¨ ì²˜ìŒ ëˆŒë €ì„ ë•Œ
 	bool GetButtonDown(KeyType key) { return GetState(key) == KeyState::Down; }
 
-	// ¸Ç Ã³À½ ´­·¶´Ù°¡ ¶ª ¶§
+	// ë§¨ ì²˜ìŒ ëˆŒë €ë‹¤ê°€ ë•” ë•Œ
 	bool GetButtonUp(KeyType key) { return GetState(key) == KeyState::Up; }
 
 	POINT GetMousePos() { return _mousePos; }

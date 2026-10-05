@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "Scene.h"
 
@@ -18,4 +18,9 @@ public:
 
 private:
 	Sprite* _background = nullptr;
+	float _boxPosX = 0;
+	float _boxPosY = 0;
+	bool _keyPress = false;
+	int32 _selMenuNumber = 0;
+	int32 _menuNumbers[2] = { GWinSizeY / 2 + 140 , GWinSizeY / 2 + 140  + 45};
 };

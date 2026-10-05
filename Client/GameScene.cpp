@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "GameScene.h"
 #include "Utils.h"
 #include "InputMgr.h"
@@ -19,6 +19,7 @@
 #include "Monster.h"
 #include "MyPlayer.h"
 #include "SceneMgr.h"
+#include "TimeMgr.h"
 #include "RectBar.h"
 #include "Core.h"
 #include "Tree.h"
@@ -32,8 +33,25 @@ GameScene::~GameScene()
 {
 }
 
+void GameScene::PreLoad(HWND hwnd)
+{
+
+	GET(TimeMgr)->Init();
+	GET(InputMgr)->Init(hwnd);
+	GET(SceneMgr)->Init();
+	GET(ResMgr)->Init(hwnd, fs::path(L"C:\\git\\" + GAME_TITLE + L"\\Resources"));
+
+	GET(SoundMgr)->Init(hwnd);
+
+	//GET(SceneMgr)->ChangeScene(SceneType::MenuScene);
+
+	GET(NetMgr)->Init();
+}
+
 void GameScene::Init()
 {
+	PreLoad(GET(Core)->GetHwnd());
+
 	GET(ResMgr)->LoadTexture(L"Stage01", L"Sprite\\Map\\main01.bmp");
 	GET(ResMgr)->LoadTexture(L"Tile", L"Sprite\\Map\\tile.bmp", RGB(255, 0, 255));
 	GET(ResMgr)->LoadTexture(L"Sword", L"Sprite\\Item\\Sword.bmp");
@@ -120,6 +138,8 @@ void GameScene::Update()
 	float deltaTime = DT;
 
 	TickMonsterSpawn();
+
+	GET(NetMgr)->Update();
 }
 
 void GameScene::Render(HDC hdc)
