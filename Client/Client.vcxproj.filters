@@ -72,6 +72,12 @@
     <Filter Include="소스 파일\03. Objects\Env">
       <UniqueIdentifier>{a0e7da6a-eed8-47e8-b897-1fb7e5e6abb7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\02. Scene\Media">
+      <UniqueIdentifier>{406222ba-9088-4158-b479-5db06f77a1d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\04. Resources\Video">
+      <UniqueIdentifier>{b1ebe7af-3079-488a-8d9a-f1f780f4b17b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -245,6 +251,12 @@
     <ClInclude Include="MenuScene.h">
       <Filter>소스 파일\02. Scene\Game</Filter>
     </ClInclude>
+    <ClInclude Include="VideoScene.h">
+      <Filter>소스 파일\02. Scene\Media</Filter>
+    </ClInclude>
+    <ClInclude Include="Video.h">
+      <Filter>소스 파일\04. Resources\Video</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -396,6 +408,12 @@
     </ClCompile>
     <ClCompile Include="MenuScene.cpp">
       <Filter>소스 파일\02. Scene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="VideoScene.cpp">
+      <Filter>소스 파일\02. Scene\Media</Filter>
+    </ClCompile>
+    <ClCompile Include="Video.cpp">
+      <Filter>소스 파일\04. Resources\Video</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

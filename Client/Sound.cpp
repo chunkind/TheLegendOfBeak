@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Sound.h"
 #include "SoundMgr.h"
 
@@ -13,7 +13,7 @@ Sound::~Sound()
 		_soundBuffer->Release();
 		_soundBuffer = nullptr;
 	}*/
-		
+
 }
 
 bool Sound::LoadWave(fs::path fullPath)
@@ -24,7 +24,7 @@ bool Sound::LoadWave(fs::path fullPath)
 	HMMIO file = ::mmioOpen((WCHAR*)fullPath.c_str(), NULL, MMIO_READ);
 	if (file == 0)
 	{
-		::MessageBox(NULL, L"»ç¿îµå ÆÄÀÏ ¾øÀ½", L"", MB_OK);
+		::MessageBox(NULL, L"ì‚¬ìš´ë“œ íŒŒì¼ ì—†ìŒ", L"", MB_OK);
 		return false;
 	}
 
@@ -54,7 +54,7 @@ bool Sound::LoadWave(fs::path fullPath)
 
 	if (FAILED(GET(SoundMgr)->GetSoundDevice()->CreateSoundBuffer(&_bufferDesc, &_soundBuffer, NULL)))
 	{
-		::MessageBox(NULL, L"»ç¿îµå ¹öÆÛ »ı¼º ½ÇÆĞ", L"", MB_OK);
+		::MessageBox(NULL, L"ì‚¬ìš´ë“œ ë²„í¼ ìƒì„± ì‹¤íŒ¨", L"", MB_OK);
 		return false;
 	}
 

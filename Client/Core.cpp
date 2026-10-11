@@ -6,6 +6,7 @@
 #include "ResMgr.h"
 #include "SoundMgr.h"
 #include "NetMgr.h"
+#include <objbase.h>
 
 Core::Core()
 {
@@ -19,10 +20,15 @@ Core::~Core()
 	//GET(ResMgr)->Clear();
 
 	_CrtDumpMemoryLeaks();
+
+	// 프로그램 끝날 때
+	::CoUninitialize();
 }
 
 void Core::Init(HWND hwnd)
 {
+	::CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);   // 시작 시 1회
+
 	_hwnd = hwnd;
 	hdc = ::GetDC(hwnd);
 
@@ -40,7 +46,7 @@ void Core::Init(HWND hwnd)
 
 	//GET(SoundMgr)->Init(hwnd);
 
-	GET(SceneMgr)->ChangeScene(SceneType::MenuScene);
+	GET(SceneMgr)->ChangeScene(SceneType::VideoScene);
 
 	//GET(NetMgr)->Init();
 }
@@ -57,23 +63,29 @@ void Core::Render()
 {
 	GET(SceneMgr)->Render(hdcBack);
 
-	uint32 fps = GET(TimeMgr)->GetFps();
+	SceneType currScene = GET(SceneMgr)->GetSceneType();
 
+	// VideoScene에서만 그려주지말자
+	if (currScene != SceneType::VideoScene)
 	{
-		POINT mousePos = GET(InputMgr)->GetMousePos();
-		wstring str = std::format(L"Mouse({0}, {1})", mousePos.x, mousePos.y);
-		::TextOut(hdcBack, 20, 10, str.c_str(), static_cast<int32>(str.size()));
-	}
+		uint32 fps = GET(TimeMgr)->GetFps();
 
-	{
-		wstring str = std::format(L"FPS({0}), DT({1})", fps, DT);
-		::TextOut(hdcBack, 550, 10, str.c_str(), static_cast<int32>(str.size()));
-	}
+		{
+			POINT mousePos = GET(InputMgr)->GetMousePos();
+			wstring str = std::format(L"Mouse({0}, {1})", mousePos.x, mousePos.y);
+			::TextOut(hdcBack, 20, 10, str.c_str(), static_cast<int32>(str.size()));
+		}
 
-	// 더블 버퍼링: 백버퍼(800x600)를 실제 윈도우 크기에 맞춰 확대/축소하여 표시
-	RECT clientRect;
-	::GetClientRect(_hwnd, &clientRect); // 현재 윈도우 클라이언트 영역 크기
-	::SetStretchBltMode(hdc, HALFTONE); // 확대 시 화질 보정 (픽셀 깨짐 방지)
-	::StretchBlt(hdc, 0, 0, clientRect.right, clientRect.bottom, hdcBack, 0, 0, _rect.right, _rect.bottom, SRCCOPY);
-	::PatBlt(hdcBack, 0, 0, _rect.right, _rect.bottom, WHITENESS); // 백버퍼 초기화 (흰색)
+		{
+			wstring str = std::format(L"FPS({0}), DT({1})", fps, DT);
+			::TextOut(hdcBack, 550, 10, str.c_str(), static_cast<int32>(str.size()));
+		}
+
+		// 더블 버퍼링: 백버퍼(800x600)를 실제 윈도우 크기에 맞춰 확대/축소하여 표시
+		RECT clientRect;
+		::GetClientRect(_hwnd, &clientRect); // 현재 윈도우 클라이언트 영역 크기
+		::SetStretchBltMode(hdc, HALFTONE); // 확대 시 화질 보정 (픽셀 깨짐 방지)
+		::StretchBlt(hdc, 0, 0, clientRect.right, clientRect.bottom, hdcBack, 0, 0, _rect.right, _rect.bottom, SRCCOPY);
+		::PatBlt(hdcBack, 0, 0, _rect.right, _rect.bottom, WHITENESS); // 백버퍼 초기화 (흰색)
+	}
 }

@@ -23,5 +23,7 @@ public:
 	static void DrawRectBorder(HDC hdc, Pos pos, int32 w, int32 h, COLORREF color, int32 thickness = 1);
 
 	static void ReadBmp(const wstring& path);
+
+	static wstring GetFileName(const fs::path& fullPath);
 };
 

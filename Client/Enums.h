@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 enum class SceneType
 {
@@ -7,6 +7,7 @@ enum class SceneType
 	EditScene,
 	MapEditScene,
 	MenuScene,
+	VideoScene,
 };
 
 enum LAYER_TYPE

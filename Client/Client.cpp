@@ -26,7 +26,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _In_ int       nCmdShow)
 {
     OnDebugMode(false); // 디버그용 콘솔
-
+    
     // 1) 윈도우 창 정보 등록
     MyRegisterClass(hInstance);
 

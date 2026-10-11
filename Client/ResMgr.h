@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 class Res;
 class Texture;
@@ -6,6 +6,7 @@ class Sprite;
 class Flipbook;
 class Tilemap;
 class Sound;
+class Video;
 
 class ResMgr
 {
@@ -35,6 +36,8 @@ public:
 	Sound* GetSound(const wstring& key) { return _sounds[key]; }
 	Sound* LoadSound(const wstring& key, const wstring& path);
 
+	Video* GetVideo(const wstring& key) { return _videos[key]; }
+	Video* LoadVideo(const wstring& key, const wstring& path);
 private:
 	HWND _hwnd;
 	fs::path _resourcePath;
@@ -44,5 +47,6 @@ private:
 	unordered_map<wstring, Flipbook*>	_flipbooks;
 	unordered_map<wstring, Tilemap*>	_tilemaps;
 	unordered_map<wstring, Sound*>		_sounds;
+	unordered_map<wstring, Video*>		_videos;
 };
 

@@ -1,10 +1,11 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "SceneMgr.h"
 #include "GameScene.h"
 #include "EditScene.h"
 #include "MapEditScene.h"
 #include "MenuScene.h"
 #include "MyPlayer.h"
+#include "VideoScene.h"
 
 SceneMgr::SceneMgr()
 {
@@ -58,6 +59,9 @@ void SceneMgr::ChangeScene(SceneType sceneType)
 		break;
 	case SceneType::MenuScene:
 		newScene = new MenuScene();
+		break;
+	case SceneType::VideoScene:
+		newScene = new VideoScene();
 		break;
 	}
 

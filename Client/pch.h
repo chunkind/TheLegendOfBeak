@@ -1,6 +1,12 @@
-#pragma once
+﻿#pragma once
 
 #include "CorePch.h"
+
+// C++20
+#include <format>
+#include <filesystem>
+namespace fs = std::filesystem;
+
 #include "Types.h"
 #include "Values.h"
 #include "Defines.h"
@@ -15,10 +21,7 @@
 #include "NetMgr.h"
 #include "CoreUtil.h"
 
-// C++20
-#include <format>
-#include <filesystem>
-namespace fs = std::filesystem;
+
 
 #define _CRTDEBG_MAP_ALLOC
 #include <cstdlib>

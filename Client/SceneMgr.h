@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 class Scene;
 class MyPlayer;
@@ -23,6 +23,8 @@ public:
 	MyPlayer* GetMyPlayer() { return _myPlayer; }
 	uint64 GetMyPlayerId();
 	void SetMyPlayer(MyPlayer* myPlayer) { _myPlayer = myPlayer; }
+
+	SceneType GetSceneType() { return _sceneType; }
 
 private:
 	Scene* _scene;

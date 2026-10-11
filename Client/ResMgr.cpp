@@ -1,10 +1,11 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "ResMgr.h"
 #include "Texture.h"
 #include "Sprite.h"
 #include "Flipbook.h"
 #include "Tilemap.h"
 #include "Sound.h"
+#include "Video.h"
 
 ResMgr::ResMgr()
 {
@@ -143,4 +144,22 @@ Sound* ResMgr::LoadSound(const wstring& key, const wstring& path)
 	_sounds[key] = sound;
 
 	return sound;
+}
+
+Video* ResMgr::LoadVideo(const wstring& key, const wstring& path)
+{
+	Video* video = new Video();
+	video->Load(path);
+
+	wstring alias = L"";
+	wstring pullPath = video->getFullPath();
+
+	if (key.empty())
+		alias = video->GetAlias();
+	else
+		alias = key;
+
+	_videos[alias] = video;
+
+	return video;
 }

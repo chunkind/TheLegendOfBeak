@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 #include "Utils.h"
+#include <string.h>
 
 void Utils::DrawText(HDC hdc, Pos pos, const wstring& str, bool bold, int32 fontSize, COLORREF color)
 {
@@ -169,4 +170,12 @@ void Utils::ReadBmp(const wstring& path)
 	fread_s(buffer, imgSize, imgSize, 1, fp);
 
 	//::free(buffer);
+}
+
+wstring Utils::GetFileName(const fs::path& fullPath)
+{
+	fs::path p = fullPath;
+	if (!p.has_filename())          // 끝에 \ 가 붙은 경우 대비
+		p = p.parent_path();
+	return p.stem().wstring();      // "main"
 }

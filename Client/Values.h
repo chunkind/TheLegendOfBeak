@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 // 게임이름
 const wstring GAME_TITLE = L"TheLegendOfBeak";
 

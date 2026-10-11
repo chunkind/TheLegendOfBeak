@@ -202,6 +202,8 @@
     <ClInclude Include="UI.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Values.h" />
+    <ClInclude Include="Video.h" />
+    <ClInclude Include="VideoScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
@@ -268,6 +270,8 @@
     <ClCompile Include="Tree.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="Video.cpp" />
+    <ClCompile Include="VideoScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />
