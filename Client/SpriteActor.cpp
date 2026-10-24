@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "SpriteActor.h"
 #include "Sprite.h"
 #include "SceneMgr.h"
@@ -51,7 +51,7 @@ void SpriteActor::Render(HDC hdc)
 		startYpos = (int32)_pos.y - ((int32)cameraPos.y - GWinSizeY / 2);
 	}
 
-	/*::TransparentBlt(hdc,
+	::TransparentBlt(hdc,
 		startXpos,
 		startYpos,
 		size.x,
@@ -61,9 +61,9 @@ void SpriteActor::Render(HDC hdc)
 		_sprite->GetPos().y,
 		_sprite->GetSize().x,
 		_sprite->GetSize().y,
-		_sprite->GetTransparent());*/
+		_sprite->GetTransparent());
 
-	::BitBlt(hdc,
+	/*::BitBlt(hdc,
 		startXpos,
 		startYpos,
 		size.x,
@@ -71,5 +71,5 @@ void SpriteActor::Render(HDC hdc)
 		_sprite->GetDC(),
 		_sprite->GetPos().x,
 		_sprite->GetPos().y,
-		SRCCOPY);
+		SRCCOPY);*/
 }

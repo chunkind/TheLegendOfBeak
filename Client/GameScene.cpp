@@ -70,6 +70,7 @@ void GameScene::Init()
 	GET(ResMgr)->LoadTexture(L"RectBar", L"Sprite\\UI\\hp_mp_bar.bmp");
 	// 지형지물
 	GET(ResMgr)->LoadTexture(L"Tree", L"Sprite\\Map\\tree.bmp", RGB(255, 0, 255));
+	GET(ResMgr)->LoadTexture(L"Tree01", L"Sprite\\Map\\tree_01.bmp", RGB(255, 0, 255));
 
 	GET(ResMgr)->CreateSprite(L"Stage01", GET(ResMgr)->GetTexture(L"Stage01"));
 	GET(ResMgr)->CreateSprite(L"TileO", GET(ResMgr)->GetTexture(L"Tile"), 0, 0, 32, 32);
@@ -98,6 +99,9 @@ void GameScene::Init()
 		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_TreeIdle");
 		fb->SetInfo({ texture, L"FB_TreeIdle", {32*2, 32*2}, 1, 4, 0, 1.0f });
 	}
+
+	// 나무
+	GET(ResMgr)->CreateSprite(L"Tree01", GET(ResMgr)->GetTexture(L"Tree01"), 0, 0, 32 * 4, 32 * 4);
 	
 
 	LoadMap();
@@ -118,15 +122,15 @@ void GameScene::Init()
 	//Test
 	//SpawnObject<Tree>(Vec2Int{ 32*7,32*8 });
 
-	//Sprite* sprite = GET(ResMgr)->GetSprite(L"TreeDead01");
+	Sprite* sprite = GET(ResMgr)->GetSprite(L"Tree01");
 
-	//SpriteActor* tree = new SpriteActor();
-	//tree->SetSprite(sprite);
-	//tree->SetLayer(LAYER_OBJECT);
-	//const Vec2Int size = sprite->GetSize();
-	//tree->SetPos(Vec2(64 * 7, 64 * 8));
+	SpriteActor* tree = new SpriteActor();
+	tree->SetSprite(sprite);
+	tree->SetLayer(LAYER_TILE);
+	const Vec2Int size = sprite->GetSize();
+	tree->SetPos(Vec2(32 * 10, 32 * 6));
 
-	//AddActor(tree);
+	AddActor(tree);
 
 	Super::Init();
 }

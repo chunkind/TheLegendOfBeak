@@ -74,7 +74,7 @@ void MenuScene::Update()
 			GET(SceneMgr)->ChangeScene(SceneType::GameScene);
 			break;
 		case 1:
-			GET(SceneMgr)->ChangeScene(SceneType::EditScene);
+			GET(SceneMgr)->ChangeScene(SceneType::MapEditScene);
 			break;
 		}
 	}
