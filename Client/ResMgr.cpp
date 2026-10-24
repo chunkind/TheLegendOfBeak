@@ -30,27 +30,27 @@ void ResMgr::Init(HWND hwnd, fs::path resourcePath)
 void ResMgr::Clear()
 {
 	for (auto& item : _textures)
-		SAFE_DELETE(item.second);
+		DEL(item.second);
 
 	_textures.clear();
 
 	for (auto& item : _sprites)
-		SAFE_DELETE(item.second);
+		DEL(item.second);
 
 	_sprites.clear();
 
 	for (auto& item : _flipbooks)
-		SAFE_DELETE(item.second);
+		DEL(item.second);
 
 	_flipbooks.clear();
 
 	for (auto& item : _tilemaps)
-		SAFE_DELETE(item.second);
+		DEL(item.second);
 
 	_tilemaps.clear();
 
 	for (auto& item : _sounds)
-		SAFE_DELETE(item.second);
+		DEL(item.second);
 
 	_sounds.clear();
 }

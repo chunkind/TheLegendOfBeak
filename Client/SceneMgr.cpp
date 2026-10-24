@@ -36,7 +36,7 @@ void SceneMgr::Render(HDC hdc)
 
 void SceneMgr::Clear()
 {
-	SAFE_DELETE(_scene);
+	DEL(_scene);
 }
 
 void SceneMgr::ChangeScene(SceneType sceneType)
@@ -65,7 +65,7 @@ void SceneMgr::ChangeScene(SceneType sceneType)
 		break;
 	}
 
-	SAFE_DELETE(_scene);
+	DEL(_scene);
 
 	_scene = newScene;
 	_sceneType = sceneType;

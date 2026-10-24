@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Scene.h"
 #include "Actor.h"
 #include "Creature.h"
@@ -15,12 +15,12 @@ Scene::~Scene()
 {
 	for (const vector<Actor*>& actors : _actors)
 		for (Actor* actor : actors)
-			SAFE_DELETE(actor);
+			DEL(actor);
 
 	_actors->clear();
 
 	for (UI* ui : _uis)
-		SAFE_DELETE(ui);
+		DEL(ui);
 
 	_uis.clear();
 }

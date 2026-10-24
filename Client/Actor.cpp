@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Actor.h"
 #include "Component.h"
 
@@ -10,7 +10,7 @@ Actor::Actor()
 Actor::~Actor()
 {
 	for (Component* component : _components)
-		SAFE_DELETE(component);
+		DEL(component);
 }
 
 void Actor::BeginPlay()

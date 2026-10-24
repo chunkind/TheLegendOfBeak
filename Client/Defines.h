@@ -12,7 +12,7 @@
 
 #define GET(type)	type::GetInst()
 
-#define SAFE_DELETE(ptr)			\
+#define DEL(ptr)					\
 	if (ptr)						\
 	{								\
 		delete ptr;					\
