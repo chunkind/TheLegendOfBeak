@@ -21,15 +21,15 @@ void GameRoom::Init()
 {
 	_tilemap.LoadFile(L"C:\\git\\TheLegendOfBeak\\Resources\\Tilemap\\Tilemap_01.txt");
 
-	for (int32 i = 0; i < 1; ++i)
+	for (int32 i = 0; i < 100; ++i)
 	{
 		Vec2Int pos = GetRandomEmptyCellPos();
 
 		MonsterRef monster = GameObject::CreateMonster();
-		//monster->info.set_posx(pos.x);
-		//monster->info.set_posy(pos.y);
-		monster->info.set_posx(15);
-		monster->info.set_posy(15);
+		monster->info.set_posx(pos.x);
+		monster->info.set_posy(pos.y);
+		//monster->info.set_posx(15);
+		//monster->info.set_posy(15);
 		AddObject(monster);
 	}
 }

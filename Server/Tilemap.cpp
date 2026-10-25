@@ -66,7 +66,12 @@ void Tilemap::LoadFile(const wstring& path)
 
 Tile* Tilemap::GetTileAt(Vec2Int pos)
 {
-	if (pos.x < 0 || pos.x >= _mapSize.x || pos.y < 0 || pos.y >= _mapSize.y)
+	if (pos.x <= 0 || pos.x >= _mapSize.x || pos.y <= 0 || pos.y >= _mapSize.y)
+		return nullptr;
+
+	// 마을영역은 출몰안하게
+	if (0 <= pos.x && pos.x <= 48
+		&& 0 <= pos.y && pos.y <= 32)
 		return nullptr;
 
 	return &_tiles[pos.y][pos.x];
