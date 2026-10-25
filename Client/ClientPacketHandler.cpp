@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "ClientPacketHandler.h"
 #include "BufferReader.h"
 #include "GameScene.h"
@@ -102,9 +102,9 @@ void ClientPacketHandler::Handle_S_MyPlayer(ServerSessionRef session, BYTE* buff
 	GameScene* scene = GET(SceneMgr)->GetGameScene();
 	if (scene)
 	{
-
 		MyPlayer* myPlayer = scene->SpawnObject<MyPlayer>(Vec2Int{ info.posx(), info.posy() });
 		myPlayer->info = info;
+		myPlayer->SetName(info.name());
 
 		Stat pStat = {};
 		pStat.hp = info.hp();

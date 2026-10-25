@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 class Component;
 class Collider;
@@ -16,6 +16,9 @@ public:
 	void SetPos(Vec2 pos) { _pos = pos; }
 	Vec2 GetPos() { return _pos; }
 
+	void SetName(string name) { _name = name; }
+	string GetName() { return _name; }
+
 	void SetLayer(LAYER_TYPE layer) { _layer = layer; }
 	LAYER_TYPE GetLayer() { return _layer; }
 
@@ -27,6 +30,7 @@ public:
 	virtual void OnComponentEndOverlap(Collider* collider, Collider* other);
 
 protected:
+	string _name = "";
 	Vec2 _pos = { 0, 0 };
 	Vec2 _destPos = { 0, 0 };
 	LAYER_TYPE _layer = LAYER_OBJECT;

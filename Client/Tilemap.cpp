@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Tilemap.h"
 #include <iostream>
 #include <fstream>
@@ -15,7 +15,6 @@ Tilemap::~Tilemap()
 
 void Tilemap::LoadFile(const wstring& path)
 {
-	// C ��Ÿ��
 	if (false)
 	{
 		FILE* file = nullptr;
@@ -40,7 +39,6 @@ void Tilemap::LoadFile(const wstring& path)
 		return;
 	}
 
-	// C++ ��Ÿ��
 	{
 		wifstream ifs;
 

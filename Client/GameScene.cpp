@@ -461,10 +461,12 @@ void GameScene::LoadUI()
 
 	//minimap
 	MiniMap* miniMap = new MiniMap();
+	miniMap->BeginPlay();
 	miniMap->SetUIName("MiniMap");
 	miniMap->SetSize({150, 150});
 	miniMap->SetSprite(miniMapSprite);
 	miniMap->SetPos(Vec2(screenWidth - 100, 100));
+
 	AddUI(hpBar);
 	AddUI(mpBar);
 	AddUI(miniMap);
@@ -486,13 +488,17 @@ void GameScene::Handle_S_AddObject(Protocol::S_AddObject& pkt)
 			Player* player = SpawnObject<Player>(Vec2Int{ info.posx(), info.posy() });
 			player->SetDir(info.dir());
 			player->SetState(info.state());
-			player->info = info;		}
+			player->SetName(info.name());
+			player->info = info;
+		}
 		else if (info.objecttype() == Protocol::OBJECT_TYPE_MONSTER)
 		{
 			Monster* monster = SpawnObject<Monster>(Vec2Int{ info.posx(), info.posy() });
 			monster->SetDir(info.dir());
 			monster->SetState(info.state());
-			monster->info = info;		}
+			monster->SetName(info.name());
+			monster->info = info;
+		}
 	}
 }
 

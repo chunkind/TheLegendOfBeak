@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "ServerPacketHandler.h"
 #include "BufferReader.h"
 #include "BufferWriter.h"
@@ -50,7 +50,7 @@ void ServerPacketHandler::Handle_C_Move(GameSessionRef session, BYTE* buffer, in
 	if (room)
 		room->Handle_C_Move(pkt);
 
-	// ·Î±× Âï±â
+	// ë¡œê·¸ ì°ê¸°
 }
 
 void ServerPacketHandler::Handle_C_Attack(GameSessionRef session, BYTE* buffer, int32 len)
