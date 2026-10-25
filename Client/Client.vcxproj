@@ -169,6 +169,7 @@
     <ClInclude Include="HitEffect.h" />
     <ClInclude Include="MapEditScene.h" />
     <ClInclude Include="MenuScene.h" />
+    <ClInclude Include="MiniMap.h" />
     <ClInclude Include="RectBar.h" />
     <ClInclude Include="InputMgr.h" />
     <ClInclude Include="Monster.h" />
@@ -230,6 +231,7 @@
     <ClCompile Include="HitEffect.cpp" />
     <ClCompile Include="MapEditScene.cpp" />
     <ClCompile Include="MenuScene.cpp" />
+    <ClCompile Include="MiniMap.cpp" />
     <ClCompile Include="RectBar.cpp" />
     <ClCompile Include="InputMgr.cpp" />
     <ClCompile Include="Monster.cpp" />

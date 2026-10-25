@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "RectBar.h"
 #include "MyPlayer.h"
 #include "SceneMgr.h"
@@ -24,13 +24,13 @@ void RectBar::Render(HDC hdc)
 
 	if (!_uiName.empty() && GET(SceneMgr)->GetMyPlayer() != nullptr) {
 		if (_uiName == "HpBar") {
-			//Player ¿¡³ÊÁö¹Ù ±×¸®±â
+			//Player ì—ë„ˆì§€ë°” ê·¸ë¦¬ê¸°
 			Protocol::ObjectInfo info = GET(SceneMgr)->GetMyPlayer()->info;
 			float hpRt = ((float)info.hp() / (float)info.maxhp()) * 100;
 			SetWidth(hpRt);
 		}
 		else if (_uiName == "MpBar") {
-			//Player ¿¡³ÊÁö¹Ù ±×¸®±â
+			//Player ì—ë„ˆì§€ë°” ê·¸ë¦¬ê¸°
 			Protocol::ObjectInfo info = GET(SceneMgr)->GetMyPlayer()->info;
 			float mpRt = ((float)info.hp() / (float)info.maxhp()) * 100;
 			SetWidth(mpRt);

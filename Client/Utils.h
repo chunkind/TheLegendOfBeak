@@ -8,6 +8,8 @@ class Utils
 public:
 	static void DrawText(HDC hdc, Pos pos, const wstring& str, bool bold = false, int32 fontSize = 20, COLORREF color = RGB(255, 255, 255));
 
+	static void DrawDot(HDC hdc, Pos pos, int32 dotSize, COLORREF color);
+
 	static void DrawRect(HDC hdc, Pos pos, int32 w, int32 h);
 
 	static void DrawCircle(HDC hdc, Pos pos, int32 radius);

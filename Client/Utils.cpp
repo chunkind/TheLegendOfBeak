@@ -41,6 +41,15 @@ void Utils::DrawText(HDC hdc, Pos pos, const wstring& str, bool bold, int32 font
 	::DeleteObject(hFont);
 }
 
+void Utils::DrawDot(HDC hdc, Pos pos, int32 dotSize, COLORREF color)
+{
+	// left, top, right, bottom
+	RECT rect = { pos.x - dotSize/2, pos.y - dotSize/2, pos.x + dotSize/2, pos.y + dotSize/2 };
+	HBRUSH brush = ::CreateSolidBrush(color);
+	::FillRect(hdc, &rect, brush);
+	::DeleteObject(brush);
+}
+
 void Utils::DrawRect(HDC hdc, Pos pos, int32 w, int32 h)
 {
 	::Rectangle(hdc

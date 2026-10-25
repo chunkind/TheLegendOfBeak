@@ -23,6 +23,7 @@
 #include "RectBar.h"
 #include "Core.h"
 #include "Tree.h"
+#include "MiniMap.h"
 
 GameScene::GameScene()
 {
@@ -57,18 +58,15 @@ void GameScene::Init()
 	GET(ResMgr)->LoadTexture(L"Sword", L"Sprite\\Item\\Sword.bmp");
 	GET(ResMgr)->LoadTexture(L"Arrow", L"Sprite\\Item\\Arrow.bmp", RGB(255, 0, 255));
 	GET(ResMgr)->LoadTexture(L"Potion", L"Sprite\\UI\\Mp.bmp");
-
 	GET(ResMgr)->LoadTexture(L"Player", L"Sprite\\Player\\player.bmp", RGB(255, 0, 255));
-
 	GET(ResMgr)->LoadTexture(L"Dack", L"Sprite\\Monster\\dack.bmp", RGB(255, 0, 255));
 	GET(ResMgr)->LoadTexture(L"Hit", L"Sprite\\Effect\\Hit.bmp", RGB(0, 0, 0));
-
 	GET(ResMgr)->LoadTexture(L"Start", L"Sprite\\UI\\Start.bmp");
 	GET(ResMgr)->LoadTexture(L"Edit", L"Sprite\\UI\\Edit.bmp");
 	GET(ResMgr)->LoadTexture(L"Exit", L"Sprite\\UI\\Exit.bmp");
-
 	GET(ResMgr)->LoadTexture(L"RectBar", L"Sprite\\UI\\hp_mp_bar.bmp");
-	// 지형지물
+	GET(ResMgr)->LoadTexture(L"MiniMap", L"Sprite\\UI\\ui_minimap_a.bmp");
+
 	GET(ResMgr)->LoadTexture(L"Tree", L"Sprite\\Map\\tree.bmp", RGB(255, 0, 255));
 	GET(ResMgr)->LoadTexture(L"Tree01", L"Sprite\\Map\\tree_01.bmp", RGB(255, 0, 255));
 
@@ -83,6 +81,7 @@ void GameScene::Init()
 	GET(ResMgr)->CreateSprite(L"Exit_On", GET(ResMgr)->GetTexture(L"Exit"), 150, 0, 150, 150);
 	GET(ResMgr)->CreateSprite(L"HpBar", GET(ResMgr)->GetTexture(L"RectBar"), 0, 0, 32 * 4, 32);
 	GET(ResMgr)->CreateSprite(L"MpBar", GET(ResMgr)->GetTexture(L"RectBar"), 0, 32, 32 * 4, 32);
+	GET(ResMgr)->CreateSprite(L"MiniMap", GET(ResMgr)->GetTexture(L"MiniMap"), 0, 0, 32 * 8, 32 * 8);
 
 	// 지형지물
 	GET(ResMgr)->CreateSprite(L"TreeDead01", GET(ResMgr)->GetTexture(L"Tree"), 0, 0, 64, 64);
@@ -442,9 +441,11 @@ void GameScene::LoadUI()
 
 	Sprite* hpSprite = GET(ResMgr)->GetSprite(L"HpBar");
 	Sprite* mpSprite = GET(ResMgr)->GetSprite(L"MpBar");
+	Sprite* miniMapSprite = GET(ResMgr)->GetSprite(L"MiniMap");
 
 	const Vec2Int hpSize = hpSprite->GetSize();
 	const Vec2Int mpSize = mpSprite->GetSize();
+	const Vec2Int miniMapSize = miniMapSprite->GetSize();
 
 	RectBar* hpBar = new RectBar();
 	hpBar->SetUIName("HpBar");
@@ -458,9 +459,15 @@ void GameScene::LoadUI()
 	mpBar->SetColor(RGB(0, 0, 255));
 	mpBar->SetPos(Vec2(screenWidth - mpSize.x/2 - 10, screenHeight - (mpSize.y/2)));
 
+	//minimap
+	MiniMap* miniMap = new MiniMap();
+	miniMap->SetUIName("MiniMap");
+	miniMap->SetSize({150, 150});
+	miniMap->SetSprite(miniMapSprite);
+	miniMap->SetPos(Vec2(screenWidth - 100, 100));
 	AddUI(hpBar);
 	AddUI(mpBar);
-
+	AddUI(miniMap);
 }
 
 void GameScene::Handle_S_AddObject(Protocol::S_AddObject& pkt)
@@ -479,15 +486,13 @@ void GameScene::Handle_S_AddObject(Protocol::S_AddObject& pkt)
 			Player* player = SpawnObject<Player>(Vec2Int{ info.posx(), info.posy() });
 			player->SetDir(info.dir());
 			player->SetState(info.state());
-			player->info = info;
-		}
+			player->info = info;		}
 		else if (info.objecttype() == Protocol::OBJECT_TYPE_MONSTER)
 		{
 			Monster* monster = SpawnObject<Monster>(Vec2Int{ info.posx(), info.posy() });
 			monster->SetDir(info.dir());
 			monster->SetState(info.state());
-			monster->info = info;
-		}
+			monster->info = info;		}
 	}
 }
 

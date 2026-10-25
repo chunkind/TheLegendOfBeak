@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 
 class UI
@@ -13,6 +13,9 @@ public:
 
 	void SetPos(Vec2 pos) { _pos = pos; }
 	Vec2 GetPos() { return _pos; }
+
+	void SetSize(Vec2Int size) { _size = size; }
+	Vec2Int GetSize() { return _size; }
 
 	void SetUIName(string uiName) { _uiName = uiName; }
 	string GetUIName() { return _uiName; }
