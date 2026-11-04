@@ -24,6 +24,7 @@
 #include "Core.h"
 #include "Tree.h"
 #include "MiniMap.h"
+#include "StoreNcp.h"
 
 GameScene::GameScene()
 {
@@ -133,6 +134,13 @@ void GameScene::Init()
 	tree->SetPos(Vec2(32 * 10, 32 * 6));
 
 	AddActor(tree);
+
+	StoreNcp* ncp = new StoreNcp();
+	ncp->BeginPlay();
+	ncp->SetPos(Vec2(64 * 5, 64 * 5));
+	ncp->SetDir(Dir::DIR_TYPE_DOWN);
+	//ncp->SetCellPos(Vec2Int{ 100, 100 });
+	AddActor(ncp);
 
 	Super::Init();
 }

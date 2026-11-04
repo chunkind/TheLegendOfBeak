@@ -66,11 +66,11 @@ void MiniMap::Render(HDC hdc)
 		return;
 
 	// 32bit BMP(premultiplied alpha)의 알파 채널로 투명 처리 + 전체 반투명
-	BLENDFUNCTION bf = {};
-	bf.BlendOp = AC_SRC_OVER;
-	bf.BlendFlags = 0;
-	bf.SourceConstantAlpha = _alpha;
-	bf.AlphaFormat = AC_SRC_ALPHA;
+	BLENDFUNCTION bf = {};                    // 전부 0으로 초기화
+	bf.BlendOp = AC_SRC_OVER;                 // 합성 방식: 원본을 대상 위에 올린다 (이 값만 허용됨)
+	bf.BlendFlags = 0;                        // 예약된 값, 항상 0
+	bf.SourceConstantAlpha = _alpha;          // 이미지 전체에 곱하는 투명도 (0~255)
+	bf.AlphaFormat = AC_SRC_ALPHA;            // 이미지 자체의 픽셀별 알파 채널을 사용한다
 
 	::SetStretchBltMode(hdc, COLORONCOLOR);
 
