@@ -59,6 +59,8 @@ void GameScene::Init()
 	GET(ResMgr)->LoadTexture(L"Arrow", L"Sprite\\Item\\Arrow.bmp", RGB(255, 0, 255));
 	GET(ResMgr)->LoadTexture(L"Potion", L"Sprite\\UI\\Mp.bmp");
 	GET(ResMgr)->LoadTexture(L"Player", L"Sprite\\Player\\player.bmp", RGB(255, 0, 255));
+	GET(ResMgr)->LoadTexture(L"StoreNcpIdle", L"Sprite\\Player\\lady001_idle.bmp");
+	GET(ResMgr)->LoadTexture(L"StoreNcpMove", L"Sprite\\Player\\lady001_move.bmp");
 	GET(ResMgr)->LoadTexture(L"Dack", L"Sprite\\Monster\\dack.bmp", RGB(255, 0, 255));
 	GET(ResMgr)->LoadTexture(L"Hit", L"Sprite\\Effect\\Hit.bmp", RGB(0, 0, 0));
 	GET(ResMgr)->LoadTexture(L"Start", L"Sprite\\UI\\Start.bmp");
@@ -105,6 +107,7 @@ void GameScene::Init()
 
 	LoadMap();
 	LoadPlayer();
+	LoadNpc();
 	LoadMonster();
 	LoadProjectiles();
 	LoadEffect();
@@ -355,6 +358,51 @@ void GameScene::LoadPlayer()
 		fb->SetInfo({ texture, L"FB_BowRight", {32 * 2, 32 * 2}, 0, 6, 15, 0.5f, false });
 	}
 
+}
+
+void GameScene::LoadNpc()
+{
+	{
+		Texture* texture = GET(ResMgr)->GetTexture(L"StoreNcpIdle");
+		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_StoreNcpIdleUp");
+		fb->SetInfo({ texture, L"FB_StoreNcpIdleUp",{ 64, 64 }, 0, 6, 0, 0.5f });
+	}
+	{
+		Texture* texture = GET(ResMgr)->GetTexture(L"StoreNcpIdle");
+		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_StoreNcpIdleDown");
+		fb->SetInfo({ texture, L"FB_StoreNcpIdleDown",{ 64, 64 }, 0, 6, 1, 0.5f });
+	}
+	{
+		Texture* texture = GET(ResMgr)->GetTexture(L"StoreNcpIdle");
+		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_StoreNcpIdleLeft");
+		fb->SetInfo({ texture, L"FB_StoreNcpIdleLeft",{ 64, 64 }, 0, 6, 2, 0.5f });
+	}
+	{
+		Texture* texture = GET(ResMgr)->GetTexture(L"StoreNcpIdle");
+		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_StoreNcpIdleRight");
+		fb->SetInfo({ texture, L"FB_StoreNcpIdleRight",{ 64, 64 }, 0, 6, 3, 0.5f });
+	}
+
+	{
+		Texture* texture = GET(ResMgr)->GetTexture(L"StoreNcpMove");
+		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_StoreNcpMoveUp");
+		fb->SetInfo({ texture, L"FB_StoreNcpMoveUp",{ 64, 64 }, 0, 6, 0, 0.5f });
+	}
+	{
+		Texture* texture = GET(ResMgr)->GetTexture(L"StoreNcpMove");
+		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_StoreNcpMoveDown");
+		fb->SetInfo({ texture, L"FB_StoreNcpMoveDown",{ 64, 64 }, 0, 6, 1, 0.5f });
+	}
+	{
+		Texture* texture = GET(ResMgr)->GetTexture(L"StoreNcpMove");
+		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_StoreNcpMoveLeft");
+		fb->SetInfo({ texture, L"FB_StoreNcpMoveLeft",{ 64, 64 }, 0, 6, 2, 0.5f });
+	}
+	{
+		Texture* texture = GET(ResMgr)->GetTexture(L"StoreNcpMove");
+		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_StoreNcpMoveRight");
+		fb->SetInfo({ texture, L"FB_StoreNcpMoveRight",{ 64, 64 }, 0, 6, 3, 0.5f });
+	}
 }
 
 void GameScene::LoadMonster()
