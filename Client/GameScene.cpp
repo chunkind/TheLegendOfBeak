@@ -137,7 +137,11 @@ void GameScene::Init()
 
 	StoreNcp* ncp = new StoreNcp();
 	ncp->BeginPlay();
-	ncp->SetPos(Vec2(64 * 5, 64 * 5));
+	ncp->SetPatrol({
+		Vec2Int{ 10, 10 }, Vec2Int{ 16, 10 }, Vec2Int{ 16, 12 }, Vec2Int{ 22, 12 },
+		Vec2Int{ 22, 10 }, Vec2Int{ 28, 10 }, Vec2Int{ 28, 16 }, Vec2Int{ 22, 16 },
+		Vec2Int{ 22, 18 }, Vec2Int{ 16, 18 }, Vec2Int{ 16, 16 }, Vec2Int{ 10, 16 }
+	});
 	ncp->SetDir(Dir::DIR_TYPE_DOWN);
 	//ncp->SetCellPos(Vec2Int{ 100, 100 });
 	AddActor(ncp);
