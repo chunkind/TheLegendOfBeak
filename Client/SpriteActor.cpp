@@ -72,4 +72,24 @@ void SpriteActor::Render(HDC hdc)
 		_sprite->GetPos().x,
 		_sprite->GetPos().y,
 		SRCCOPY);*/
+
+/*	BLENDFUNCTION bf = {};                    // 전부 0으로 초기화
+	bf.BlendOp = AC_SRC_OVER;                 // 합성 방식: 원본을 대상 위에 올린다 (이 값만 허용됨)
+	bf.BlendFlags = 0;                        // 예약된 값, 항상 0
+	bf.SourceConstantAlpha = 255;          // 이미지 전체에 곱하는 투명도 (0~255)
+	bf.AlphaFormat = AC_SRC_ALPHA;            // 이미지 자체의 픽셀별 알파 채널을 사용한다
+
+	::SetStretchBltMode(hdc, COLORONCOLOR);	  // 이미지를 축소하거나 확대해서 그릴 때 픽셀을 어떻게 처리할지 정하는 설정입니다. COLORONCOLOR는 그 방식 중 하나입니다.
+
+	::AlphaBlend(hdc,
+		startXpos,
+		startYpos,
+		size.x,
+		size.y,
+		_sprite->GetDC(),
+		0,
+		0,
+		size.x,
+		size.y,
+		bf);*/
 }

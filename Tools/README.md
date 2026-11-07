@@ -17,7 +17,7 @@ python Tools\png2bmp32.py C:\git\ck_dot_art\rpg\ui        # 폴더 안의 *.png 
 python Tools\png2bmp32.py a.png -o Resources\Sprite\UI    # 출력 폴더 지정
 python Tools\png2bmp32.py a.png -s ""                     # 접미사 제거 (이름.bmp)
 
-python Tools\png2bmp32.py C:\\git\\TheLegendOfBeak\\Resources\\Sprite\\Player        # 폴더 안의 *.png 전부
+python png2bmp32.py C:\\git\\TheLegendOfBeak\\Resources\\Sprite        # 폴더 안의 *.png 전부
 ```
 
 | 옵션 | 설명 |

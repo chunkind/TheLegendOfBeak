@@ -70,6 +70,9 @@ void GameScene::Init()
 	GET(ResMgr)->LoadTexture(L"RectBar", L"Sprite\\UI\\hp_mp_bar.bmp");
 	GET(ResMgr)->LoadTexture(L"MiniMap", L"Sprite\\UI\\ui_minimap_a.bmp");
 
+	//Building
+	GET(ResMgr)->LoadTexture(L"PosionShop", L"Sprite\\Building\\posion_shop_a.bmp");
+
 	GET(ResMgr)->LoadTexture(L"Tree", L"Sprite\\Map\\tree.bmp", RGB(255, 0, 255));
 	GET(ResMgr)->LoadTexture(L"Tree01", L"Sprite\\Map\\tree_01.bmp", RGB(255, 0, 255));
 
@@ -85,6 +88,8 @@ void GameScene::Init()
 	GET(ResMgr)->CreateSprite(L"HpBar", GET(ResMgr)->GetTexture(L"RectBar"), 0, 0, 32 * 4, 32);
 	GET(ResMgr)->CreateSprite(L"MpBar", GET(ResMgr)->GetTexture(L"RectBar"), 0, 32, 32 * 4, 32);
 	GET(ResMgr)->CreateSprite(L"MiniMap", GET(ResMgr)->GetTexture(L"MiniMap"), 0, 0, 32 * 8, 32 * 8);
+
+	GET(ResMgr)->CreateSprite(L"PosionShop", GET(ResMgr)->GetTexture(L"PosionShop"), 0, 0, 64 * 3, 64 * 3);
 
 	// 지형지물
 	GET(ResMgr)->CreateSprite(L"TreeDead01", GET(ResMgr)->GetTexture(L"Tree"), 0, 0, 64, 64);
@@ -124,16 +129,32 @@ void GameScene::Init()
 
 	//Test
 	//SpawnObject<Tree>(Vec2Int{ 32*7,32*8 });
+	/*{
+		Sprite* sprite = GET(ResMgr)->GetSprite(L"Tree01");
 
-	Sprite* sprite = GET(ResMgr)->GetSprite(L"Tree01");
+		SpriteActor* tree = new SpriteActor();
+		tree->SetSprite(sprite);
+		tree->SetLayer(LAYER_TILE);
+		const Vec2Int size = sprite->GetSize();
+		tree->SetPos(Vec2(32 * 10, 32 * 6));
 
-	SpriteActor* tree = new SpriteActor();
-	tree->SetSprite(sprite);
-	tree->SetLayer(LAYER_TILE);
-	const Vec2Int size = sprite->GetSize();
-	tree->SetPos(Vec2(32 * 10, 32 * 6));
+		AddActor(tree);
+	}*/
+	
 
-	AddActor(tree);
+	// Store
+	{
+		Sprite* sprite = GET(ResMgr)->GetSprite(L"PosionShop");
+
+		SpriteActor* posionShop = new SpriteActor();
+		posionShop->SetSprite(sprite);
+		posionShop->SetLayer(LAYER_OBJECT);
+		posionShop->SetPos(Vec2(32 * 15, 32 * 15));
+		posionShop->SetCenterPos(true);
+
+		AddActor(posionShop);
+	}
+
 
 	StoreNcp* ncp = new StoreNcp();
 	ncp->BeginPlay();
