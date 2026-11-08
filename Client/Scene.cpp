@@ -3,6 +3,7 @@
 #include "Actor.h"
 #include "Creature.h"
 #include "UI.h"
+#include "SpriteActor.h"
 #include "TimeMgr.h"
 #include "SceneMgr.h"
 

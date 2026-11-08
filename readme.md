@@ -1,3 +1,5 @@
+python Tools/png2bmp32.py C:\\git\\TheLegendOfBeak\\Resources\\Sprite\\Building
+
 * Client
 일반 -> 출력 디렉토리
 $(SolutionDir)Libraries\Client\$(Configuration)\

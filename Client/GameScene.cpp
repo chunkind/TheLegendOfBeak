@@ -89,7 +89,8 @@ void GameScene::Init()
 	GET(ResMgr)->CreateSprite(L"MpBar", GET(ResMgr)->GetTexture(L"RectBar"), 0, 32, 32 * 4, 32);
 	GET(ResMgr)->CreateSprite(L"MiniMap", GET(ResMgr)->GetTexture(L"MiniMap"), 0, 0, 32 * 8, 32 * 8);
 
-	GET(ResMgr)->CreateSprite(L"PosionShop", GET(ResMgr)->GetTexture(L"PosionShop"), 0, 0, 64 * 3, 64 * 3);
+	GET(ResMgr)->CreateSprite(L"PosionShopTop", GET(ResMgr)->GetTexture(L"PosionShop"), 0, 0, 32 * 6, 32 * 4);
+	GET(ResMgr)->CreateSprite(L"PosionShopDown", GET(ResMgr)->GetTexture(L"PosionShop"), 32 * 0, 32 * 4, 32 * 6, 32 * 2);
 
 	// 지형지물
 	GET(ResMgr)->CreateSprite(L"TreeDead01", GET(ResMgr)->GetTexture(L"Tree"), 0, 0, 64, 64);
@@ -144,28 +145,54 @@ void GameScene::Init()
 
 	// Store
 	{
-		Sprite* sprite = GET(ResMgr)->GetSprite(L"PosionShop");
+		Sprite* sprite = GET(ResMgr)->GetSprite(L"PosionShopTop");
 
 		SpriteActor* posionShop = new SpriteActor();
 		posionShop->SetSprite(sprite);
-		posionShop->SetLayer(LAYER_OBJECT);
+		posionShop->SetLayer(LAYER_BUILDING);
 		posionShop->SetPos(Vec2(32 * 15, 32 * 15));
-		posionShop->SetCenterPos(true);
+		posionShop->SetCenterPos(false);
+		posionShop->SetAlpha(true);
+
+		AddActor(posionShop);
+	}
+	{
+		Sprite* sprite = GET(ResMgr)->GetSprite(L"PosionShopDown");
+
+		SpriteActor* posionShop = new SpriteActor();
+		posionShop->SetSprite(sprite);
+		posionShop->SetLayer(LAYER_OBJECT_BLOCK);
+		posionShop->SetPos(Vec2(32 * 15, 32 * 19));
+		posionShop->SetCenterPos(false);
+		posionShop->SetAlpha(true);
 
 		AddActor(posionShop);
 	}
 
+	// 돌아다니는 NCP
+	//{
+	//	StoreNcp* ncp = new StoreNcp();
+	//	ncp->BeginPlay();
+	//	ncp->SetPatrol({
+	//		Vec2Int{ 10, 10 }, Vec2Int{ 16, 10 }, Vec2Int{ 16, 12 }, Vec2Int{ 22, 12 },
+	//		Vec2Int{ 22, 10 }, Vec2Int{ 28, 10 }, Vec2Int{ 28, 16 }, Vec2Int{ 22, 16 },
+	//		Vec2Int{ 22, 18 }, Vec2Int{ 16, 18 }, Vec2Int{ 16, 16 }, Vec2Int{ 10, 16 }
+	//		});
+	//	ncp->SetDir(Dir::DIR_TYPE_DOWN);
+	//	//ncp->SetCellPos(Vec2Int{ 100, 100 });
+	//	AddActor(ncp);
+	//}
 
-	StoreNcp* ncp = new StoreNcp();
-	ncp->BeginPlay();
-	ncp->SetPatrol({
-		Vec2Int{ 10, 10 }, Vec2Int{ 16, 10 }, Vec2Int{ 16, 12 }, Vec2Int{ 22, 12 },
-		Vec2Int{ 22, 10 }, Vec2Int{ 28, 10 }, Vec2Int{ 28, 16 }, Vec2Int{ 22, 16 },
-		Vec2Int{ 22, 18 }, Vec2Int{ 16, 18 }, Vec2Int{ 16, 16 }, Vec2Int{ 10, 16 }
-	});
-	ncp->SetDir(Dir::DIR_TYPE_DOWN);
-	//ncp->SetCellPos(Vec2Int{ 100, 100 });
-	AddActor(ncp);
+	// 상점 NCP
+	{
+		StoreNcp* ncp = new StoreNcp();
+		ncp->BeginPlay();
+		ncp->SetDir(Dir::DIR_TYPE_DOWN);
+		ncp->SetCellPos(Vec2Int{ 17, 18 }, true);
+		ncp->SetState(IDLE);
+		AddActor(ncp);
+	}
+	
 
 	Super::Init();
 }
@@ -500,6 +527,7 @@ void GameScene::LoadEffect()
 void GameScene::LoadTilemap()
 {
 	TilemapActor* actor = new TilemapActor();
+	actor->SetLayer(LAYER_BACKGROUND);
 	AddActor(actor);
 
 	_tilemapActor = actor;
@@ -532,13 +560,13 @@ void GameScene::LoadUI()
 	hpBar->SetUIName("HpBar");
 	hpBar->SetSprite(hpSprite);
 	hpBar->SetColor(RGB(255, 0, 0));
-	hpBar->SetPos(Vec2(screenWidth - hpSize.x/2 - 10, screenHeight - (hpSize.y/2*3)));
+	hpBar->SetPos(Vec2(32 * 3, 32 * 1));
 
 	RectBar* mpBar = new RectBar();
 	mpBar->SetUIName("MpBar");
 	mpBar->SetSprite(mpSprite);
 	mpBar->SetColor(RGB(0, 0, 255));
-	mpBar->SetPos(Vec2(screenWidth - mpSize.x/2 - 10, screenHeight - (mpSize.y/2)));
+	mpBar->SetPos(Vec2(32 * 3, 32 * 2));
 
 	//minimap
 	MiniMap* miniMap = new MiniMap();
@@ -767,6 +795,27 @@ bool GameScene::CanGo(Vec2Int cellPos)
 	// 몬스터 충돌?
 	if (GetCreatureAt(cellPos) != nullptr)
 		return false;
+
+	// 못가는 지역
+	for (Actor* actor : _actors[LAYER_OBJECT_BLOCK])
+	{
+		// GameObjectType
+		SpriteActor* creature = dynamic_cast<SpriteActor*>(actor);
+		Creature* r = new Creature();
+
+		if (creature)
+		{
+			Vec2 cpos = creature->GetPos();
+			int x = cpos.x / 32;
+			int y = cpos.y / 32;
+			Vec2Int size = creature->GetSprite()->GetSize();
+			int cx = size.x / 32 + x - 1;
+			int cy = size.y / 32 + y - 1;
+			if (x <= cellPos.x && cellPos.x <= cx
+				&& y <= cellPos.y && cellPos.y <= cy)
+				return false;
+		}
+	}
 
 	return tile->value != 1;
 }

@@ -58,48 +58,52 @@ void StoreNcp::SetPatrol(const vector<Vec2Int>& waypoints)
 void StoreNcp::TickIdle()
 {
 	if (_waypoints.empty())
-		return;
-
-	if (_waitSeconds > 0.f)
 	{
-		_waitSeconds = max(0.f, _waitSeconds - DT);
-		return;
+
 	}
-
-	Vec2Int cell = GetCellPos();
-	Vec2Int target = _waypoints[_waypointIdx];
-	if (cell == target)
+	else
 	{
-		_waypointIdx = (_waypointIdx + 1) % (int32)_waypoints.size();
-		target = _waypoints[_waypointIdx];
-		if (cell == target)
+		if (_waitSeconds > 0.f)
+		{
+			_waitSeconds = max(0.f, _waitSeconds - DT);
 			return;
+		}
+
+		Vec2Int cell = GetCellPos();
+		Vec2Int target = _waypoints[_waypointIdx];
+		if (cell == target)
+		{
+			_waypointIdx = (_waypointIdx + 1) % (int32)_waypoints.size();
+			target = _waypoints[_waypointIdx];
+			if (cell == target)
+				return;
+		}
+
+		// 목적지 방향으로 한 칸. 남은 거리가 먼 축을 먼저 시도하고, 막히면 다른 축을 시도한다.
+		Vec2Int delta = target - cell;
+		vector<Vec2Int> steps;
+		if (delta.x != 0)
+			steps.push_back(Vec2Int{ delta.x > 0 ? 1 : -1, 0 });
+		if (delta.y != 0)
+			steps.push_back(Vec2Int{ 0, delta.y > 0 ? 1 : -1 });
+		if (steps.size() == 2 && abs(delta.y) > abs(delta.x))
+			std::swap(steps[0], steps[1]);
+
+		for (Vec2Int& step : steps)
+		{
+			Vec2Int nextCell = cell + step;
+			if (CanGo(nextCell) == false)
+				continue;
+
+			SetDir(GetLookAtDir(nextCell));
+			SetCellPos(nextCell);
+			SetState(MOVE);
+			return;
+		}
+
+		// 막혔으면 잠시 후 다시 시도
+		_waitSeconds = 0.5f;
 	}
-
-	// 목적지 방향으로 한 칸. 남은 거리가 먼 축을 먼저 시도하고, 막히면 다른 축을 시도한다.
-	Vec2Int delta = target - cell;
-	vector<Vec2Int> steps;
-	if (delta.x != 0)
-		steps.push_back(Vec2Int{ delta.x > 0 ? 1 : -1, 0 });
-	if (delta.y != 0)
-		steps.push_back(Vec2Int{ 0, delta.y > 0 ? 1 : -1 });
-	if (steps.size() == 2 && abs(delta.y) > abs(delta.x))
-		std::swap(steps[0], steps[1]);
-
-	for (Vec2Int& step : steps)
-	{
-		Vec2Int nextCell = cell + step;
-		if (CanGo(nextCell) == false)
-			continue;
-
-		SetDir(GetLookAtDir(nextCell));
-		SetCellPos(nextCell);
-		SetState(MOVE);
-		return;
-	}
-
-	// 막혔으면 잠시 후 다시 시도
-	_waitSeconds = 0.5f;
 }
 
 void StoreNcp::TickMove()
