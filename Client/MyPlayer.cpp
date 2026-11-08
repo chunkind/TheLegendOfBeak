@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "MyPlayer.h"
 #include "InputMgr.h"
 #include "TimeMgr.h"
@@ -9,6 +9,7 @@
 #include "GameScene.h"
 #include "Arrow.h"
 #include "HitEffect.h"
+#include "EventTrigger.h"
 
 MyPlayer::MyPlayer()
 {
@@ -92,6 +93,20 @@ void MyPlayer::TickInput()
 		GameScene* scene = dynamic_cast<GameScene*>(GET(SceneMgr)->GetCurrentScene());
 		if (scene == nullptr)
 			return;
+
+		// 이벤트
+		vector<Actor*> events = scene->_actors[LAYER_EVENT];
+		for (int i = 0; i < events.size(); i++)
+		{
+			EventTrigger* event = static_cast<EventTrigger*>(events[i]);
+			Vec2 pos = event->GetPos();
+			int posCellPosX = pos.x / 32;
+			int posCellPosY = pos.y / 32;
+			Vec2Int myPos = GetCellPos();
+			if (posCellPosX == myPos.x && posCellPosY == myPos.y) {
+				event->StartEvent();
+			}
+		}
 
 		if (_weaponType == WeaponType::OBJECT_WEAPON_TYPE_SWORD)
 		{

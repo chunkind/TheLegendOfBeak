@@ -25,6 +25,7 @@
 #include "Tree.h"
 #include "MiniMap.h"
 #include "StoreNcp.h"
+#include "EventTrigger.h"
 
 GameScene::GameScene()
 {
@@ -64,17 +65,19 @@ void GameScene::Init()
 	GET(ResMgr)->LoadTexture(L"StoreNcpMove", L"Sprite\\Player\\lady001_move.bmp");
 	GET(ResMgr)->LoadTexture(L"Dack", L"Sprite\\Monster\\dack.bmp", RGB(255, 0, 255));
 	GET(ResMgr)->LoadTexture(L"Hit", L"Sprite\\Effect\\Hit.bmp", RGB(0, 0, 0));
+	// UI
 	GET(ResMgr)->LoadTexture(L"Start", L"Sprite\\UI\\Start.bmp");
 	GET(ResMgr)->LoadTexture(L"Edit", L"Sprite\\UI\\Edit.bmp");
 	GET(ResMgr)->LoadTexture(L"Exit", L"Sprite\\UI\\Exit.bmp");
 	GET(ResMgr)->LoadTexture(L"RectBar", L"Sprite\\UI\\ui_hp_mp_bar_a.bmp");
 	GET(ResMgr)->LoadTexture(L"MiniMap", L"Sprite\\UI\\ui_minimap_a.bmp");
-
+	GET(ResMgr)->LoadTexture(L"MsgBox", L"Sprite\\UI\\ui_massage_box_a.bmp");
 	//Building
 	GET(ResMgr)->LoadTexture(L"PosionShop", L"Sprite\\Building\\posion_shop_a.bmp");
-
 	GET(ResMgr)->LoadTexture(L"Tree", L"Sprite\\Map\\tree.bmp", RGB(255, 0, 255));
 	GET(ResMgr)->LoadTexture(L"Tree01", L"Sprite\\Map\\tree_01.bmp", RGB(255, 0, 255));
+	
+
 
 	GET(ResMgr)->CreateSprite(L"Stage01", GET(ResMgr)->GetTexture(L"Stage01"));
 	GET(ResMgr)->CreateSprite(L"TileO", GET(ResMgr)->GetTexture(L"Tile"), 0, 0, 32, 32);
@@ -89,7 +92,8 @@ void GameScene::Init()
 	GET(ResMgr)->CreateSprite(L"MpBar",		GET(ResMgr)->GetTexture(L"RectBar"), 0, 32 * 1, 32 * 4, 32);
 	GET(ResMgr)->CreateSprite(L"MoneyBar",	GET(ResMgr)->GetTexture(L"RectBar"), 0, 32 * 2, 32 * 4, 32);
 	GET(ResMgr)->CreateSprite(L"MiniMap", GET(ResMgr)->GetTexture(L"MiniMap"), 0, 0, 32 * 8, 32 * 8);
-
+	GET(ResMgr)->CreateSprite(L"MsgBox", GET(ResMgr)->GetTexture(L"MsgBox"));
+	// Buingding
 	GET(ResMgr)->CreateSprite(L"PosionShopTop", GET(ResMgr)->GetTexture(L"PosionShop"), 0, 0, 32 * 6, 32 * 4);
 	GET(ResMgr)->CreateSprite(L"PosionShopDown", GET(ResMgr)->GetTexture(L"PosionShop"), 32 * 0, 32 * 4, 32 * 6, 32 * 2);
 
@@ -193,8 +197,17 @@ void GameScene::Init()
 		ncp->SetState(IDLE);
 		AddActor(ncp);
 	}
-	
 
+	// 이벤트 셋팅
+	{
+		Sprite* sprite = GET(ResMgr)->GetSprite(L"MsgBox");
+		EventTrigger* event = new EventTrigger();
+		event->SetPos({ 32 * 17, 32 * 21 });
+		event->SetSprite(sprite);
+		
+		AddActor(event);
+	}
+	
 	Super::Init();
 }
 
