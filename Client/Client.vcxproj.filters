@@ -90,6 +90,9 @@
     <Filter Include="소스 파일\03. Objects\Effect">
       <UniqueIdentifier>{aed6c673-a360-47e7-aa90-28b6ed446316}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03. Objects\Event">
+      <UniqueIdentifier>{7feb1b74-78d9-4a22-ad3a-073645c8aca4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -278,6 +281,9 @@
     <ClInclude Include="MsgBox.h">
       <Filter>소스 파일\06. UI\Game</Filter>
     </ClInclude>
+    <ClInclude Include="EventTrigger.h">
+      <Filter>소스 파일\03. Objects\Event</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -444,6 +450,9 @@
     </ClCompile>
     <ClCompile Include="MsgBox.cpp">
       <Filter>소스 파일\06. UI\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="EventTrigger.cpp">
+      <Filter>소스 파일\03. Objects\Event</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
