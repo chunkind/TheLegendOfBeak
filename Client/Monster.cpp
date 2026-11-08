@@ -1,4 +1,4 @@
-#include "pch.h"
+癤�#include "pch.h"
 #include "Monster.h"
 #include "InputMgr.h"
 #include "TimeMgr.h"
@@ -42,7 +42,6 @@ void Monster::Render(HDC hdc)
 {
 	Super::Render(hdc);
 
-	// 에너지바
 	Vec2 cameraPos = GET(SceneMgr)->GetCameraPos();
 	string name = info.name();
 	float hp = info.hp();
@@ -78,7 +77,7 @@ void Monster::TickIdle()
 		{
 			SetDir(GetLookAtDir(_target->GetCellPos()));
 			SetState(SKILL);
-			_waitSeconds = 0.5f; // 공격 종료 시간
+			_waitSeconds = 0.5f;
 		}
 		else
 		{

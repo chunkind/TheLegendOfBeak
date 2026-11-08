@@ -6,7 +6,7 @@ using namespace std;
 class Utils
 {
 public:
-	static void DrawText(HDC hdc, Pos pos, const wstring& str, bool bold = false, int32 fontSize = 20, COLORREF color = RGB(255, 255, 255));
+	static void DrawText(HDC hdc, Pos pos, const wstring& str, bool bold = false, int32 fontSize = 20, COLORREF color = RGB(255, 255, 255), bool alignRight = false);
 
 	static void DrawDot(HDC hdc, Pos pos, int32 dotSize, COLORREF color);
 

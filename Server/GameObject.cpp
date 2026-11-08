@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "GameObject.h"
 #include "Player.h"
 #include "Monster.h"
@@ -20,6 +20,7 @@ PlayerRef GameObject::CreatePlayer()
 	player->info.set_hp(50);
 	player->info.set_maxhp(50);
 	player->info.set_attack(20);
+	player->info.set_money(500);
 
 	return player;
 }

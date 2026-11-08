@@ -385,6 +385,7 @@ class ObjectInfo final :
     kDefenceFieldNumber = 9,
     kPosXFieldNumber = 10,
     kPosYFieldNumber = 11,
+    kMoneyFieldNumber = 12,
   };
   // string name = 5;
   void clear_name();
@@ -490,6 +491,15 @@ class ObjectInfo final :
   void _internal_set_posy(int32_t value);
   public:
 
+  // int32 money = 12;
+  void clear_money();
+  int32_t money() const;
+  void set_money(int32_t value);
+  private:
+  int32_t _internal_money() const;
+  void _internal_set_money(int32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.ObjectInfo)
  private:
   class _Internal;
@@ -509,6 +519,7 @@ class ObjectInfo final :
     int32_t defence_;
     int32_t posx_;
     int32_t posy_;
+    int32_t money_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1215,6 +1226,26 @@ inline void ObjectInfo::_internal_set_posy(int32_t value) {
 inline void ObjectInfo::set_posy(int32_t value) {
   _internal_set_posy(value);
   // @@protoc_insertion_point(field_set:Protocol.ObjectInfo.posY)
+}
+
+// int32 money = 12;
+inline void ObjectInfo::clear_money() {
+  _impl_.money_ = 0;
+}
+inline int32_t ObjectInfo::_internal_money() const {
+  return _impl_.money_;
+}
+inline int32_t ObjectInfo::money() const {
+  // @@protoc_insertion_point(field_get:Protocol.ObjectInfo.money)
+  return _internal_money();
+}
+inline void ObjectInfo::_internal_set_money(int32_t value) {
+  
+  _impl_.money_ = value;
+}
+inline void ObjectInfo::set_money(int32_t value) {
+  _internal_set_money(value);
+  // @@protoc_insertion_point(field_set:Protocol.ObjectInfo.money)
 }
 
 // -------------------------------------------------------------------

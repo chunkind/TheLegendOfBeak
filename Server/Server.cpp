@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include <iostream>
 #include <thread>
 #include <vector>
@@ -38,4 +38,5 @@ int main()
 
 	// 윈속 종료
 	SocketUtils::Clear();
+
 }

@@ -67,7 +67,7 @@ void GameScene::Init()
 	GET(ResMgr)->LoadTexture(L"Start", L"Sprite\\UI\\Start.bmp");
 	GET(ResMgr)->LoadTexture(L"Edit", L"Sprite\\UI\\Edit.bmp");
 	GET(ResMgr)->LoadTexture(L"Exit", L"Sprite\\UI\\Exit.bmp");
-	GET(ResMgr)->LoadTexture(L"RectBar", L"Sprite\\UI\\hp_mp_bar.bmp");
+	GET(ResMgr)->LoadTexture(L"RectBar", L"Sprite\\UI\\ui_hp_mp_bar_a.bmp");
 	GET(ResMgr)->LoadTexture(L"MiniMap", L"Sprite\\UI\\ui_minimap_a.bmp");
 
 	//Building
@@ -85,8 +85,9 @@ void GameScene::Init()
 	GET(ResMgr)->CreateSprite(L"Edit_On", GET(ResMgr)->GetTexture(L"Edit"), 150, 0, 150, 150);
 	GET(ResMgr)->CreateSprite(L"Exit_Off", GET(ResMgr)->GetTexture(L"Exit"), 0, 0, 150, 150);
 	GET(ResMgr)->CreateSprite(L"Exit_On", GET(ResMgr)->GetTexture(L"Exit"), 150, 0, 150, 150);
-	GET(ResMgr)->CreateSprite(L"HpBar", GET(ResMgr)->GetTexture(L"RectBar"), 0, 0, 32 * 4, 32);
-	GET(ResMgr)->CreateSprite(L"MpBar", GET(ResMgr)->GetTexture(L"RectBar"), 0, 32, 32 * 4, 32);
+	GET(ResMgr)->CreateSprite(L"HpBar",		GET(ResMgr)->GetTexture(L"RectBar"), 0, 32 * 0, 32 * 4, 32);
+	GET(ResMgr)->CreateSprite(L"MpBar",		GET(ResMgr)->GetTexture(L"RectBar"), 0, 32 * 1, 32 * 4, 32);
+	GET(ResMgr)->CreateSprite(L"MoneyBar",	GET(ResMgr)->GetTexture(L"RectBar"), 0, 32 * 2, 32 * 4, 32);
 	GET(ResMgr)->CreateSprite(L"MiniMap", GET(ResMgr)->GetTexture(L"MiniMap"), 0, 0, 32 * 8, 32 * 8);
 
 	GET(ResMgr)->CreateSprite(L"PosionShopTop", GET(ResMgr)->GetTexture(L"PosionShop"), 0, 0, 32 * 6, 32 * 4);
@@ -550,6 +551,7 @@ void GameScene::LoadUI()
 
 	Sprite* hpSprite = GET(ResMgr)->GetSprite(L"HpBar");
 	Sprite* mpSprite = GET(ResMgr)->GetSprite(L"MpBar");
+	Sprite* mnSprite = GET(ResMgr)->GetSprite(L"MoneyBar");
 	Sprite* miniMapSprite = GET(ResMgr)->GetSprite(L"MiniMap");
 
 	const Vec2Int hpSize = hpSprite->GetSize();
@@ -568,6 +570,12 @@ void GameScene::LoadUI()
 	mpBar->SetColor(RGB(0, 0, 255));
 	mpBar->SetPos(Vec2(32 * 3, 32 * 2));
 
+	RectBar* mnBar = new RectBar();
+	mnBar->SetUIName("MnBar");
+	mnBar->SetSprite(mnSprite);
+	mnBar->SetColor(RGB(0, 0, 255));
+	mnBar->SetPos(Vec2(32 * 3, 32 * 3));
+
 	//minimap
 	MiniMap* miniMap = new MiniMap();
 	miniMap->BeginPlay();
@@ -578,6 +586,7 @@ void GameScene::LoadUI()
 
 	AddUI(hpBar);
 	AddUI(mpBar);
+	AddUI(mnBar);
 	AddUI(miniMap);
 }
 

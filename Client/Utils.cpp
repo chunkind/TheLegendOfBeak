@@ -2,7 +2,7 @@
 #include "Utils.h"
 #include <string.h>
 
-void Utils::DrawText(HDC hdc, Pos pos, const wstring& str, bool bold, int32 fontSize, COLORREF color)
+void Utils::DrawText(HDC hdc, Pos pos, const wstring& str, bool bold, int32 fontSize, COLORREF color, bool alignRight)
 {
 	// 1. 폰트 생성 (높이를 음수로 주면 글자 자체의 높이 기준)
 	HFONT hFont = ::CreateFont(
@@ -25,10 +25,16 @@ void Utils::DrawText(HDC hdc, Pos pos, const wstring& str, bool bold, int32 font
 	int32 oldBkMode = ::SetBkMode(hdc, TRANSPARENT);
 	COLORREF oldColor = ::SetTextColor(hdc, color);
 
+	// 정렬
+	UINT oldAlign = 0;
+	if (alignRight)
+		oldAlign = ::SetTextAlign(hdc, TA_RIGHT | TA_TOP);
+
 	// 4. 출력
 	::TextOut(hdc
 		, static_cast<int32>(pos.x)
-		, static_cast<int32>(pos.y), str.c_str()
+		, static_cast<int32>(pos.y)
+		, str.c_str()
 		, static_cast<int32>(str.size())
 	);
 
@@ -36,6 +42,10 @@ void Utils::DrawText(HDC hdc, Pos pos, const wstring& str, bool bold, int32 font
 	::SetTextColor(hdc, oldColor);
 	::SetBkMode(hdc, oldBkMode);
 	::SelectObject(hdc, hOldFont);
+	// 정렬
+	if (alignRight)
+		::SetTextAlign(hdc, oldAlign);
+		
 
 	// 6. 폰트 삭제 (안 하면 GDI 핸들 누수)
 	::DeleteObject(hFont);
