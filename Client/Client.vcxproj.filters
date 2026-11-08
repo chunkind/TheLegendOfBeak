@@ -275,6 +275,9 @@
     <ClInclude Include="StoreNcp.h">
       <Filter>소스 파일\03. Objects\Creature\Npc</Filter>
     </ClInclude>
+    <ClInclude Include="MsgBox.h">
+      <Filter>소스 파일\06. UI\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -438,6 +441,9 @@
     </ClCompile>
     <ClCompile Include="StoreNcp.cpp">
       <Filter>소스 파일\03. Objects\Creature\Npc</Filter>
+    </ClCompile>
+    <ClCompile Include="MsgBox.cpp">
+      <Filter>소스 파일\06. UI\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

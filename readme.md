@@ -1,4 +1,13 @@
+$src = "C:\git\ck_dot_art\rpg"
+$dst = "C:\git\TheLegendOfBeak\Resources\Sprite"
+Get-ChildItem $src -Recurse -Filter *.png | ForEach-Object {
+    $target = Join-Path $dst $_.FullName.Substring($src.Length + 1)
+    New-Item -ItemType Directory -Force (Split-Path $target) | Out-Null
+    Copy-Item $_.FullName $target -Force
+}
+
 python Tools/png2bmp32.py C:\\git\\TheLegendOfBeak\\Resources\\Sprite\\Building
+python Tools/png2bmp32.py C:\\git\\TheLegendOfBeak\\Resources\\Sprite\\UI
 
 * Client
 일반 -> 출력 디렉토리
