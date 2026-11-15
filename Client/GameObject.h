@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "FlipbookActor.h"
 
 class GameObject : public FlipbookActor
@@ -17,6 +17,7 @@ public:
 	virtual void TickMove() {}
 	virtual void TickSkill() {}
 	virtual void TickDead() {}
+	virtual void TickEvent() {}
 
 	void SetState(ObjectState state);
 	void SetDir(Dir dir);

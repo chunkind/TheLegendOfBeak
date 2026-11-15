@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "GameObject.h"
 
@@ -32,6 +32,7 @@ public:
 	virtual void TickMove() override {}
 	virtual void TickSkill() override {}
 	virtual void TickDead() override {}
+	virtual void TickEvent() override {}
 	virtual void UpdateAnimation() override {}
 
 	virtual void OnDamaged(Creature* attacker);

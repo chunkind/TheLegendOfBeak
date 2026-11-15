@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "GameObject.h"
 #include "Creature.h"
 #include "InputMgr.h"
@@ -41,6 +41,12 @@ void GameObject::Tick()
 		break;
 	case SKILL:
 		TickSkill();
+		break;
+	case EVENT:
+		TickEvent();
+		break;
+	case DEAD:
+		TickDead();
 		break;
 	}
 

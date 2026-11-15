@@ -1,16 +1,15 @@
 ﻿#pragma once
 
-#include "Actor.h"
+#include "GameObject.h"
 
 class Sprite;
-class GameObject;
 
-class EventTrigger : public Actor
+class Event : public GameObject
 {
-	using Super = Actor;
+	using Super = GameObject;
 public:
-	EventTrigger(GameObject* opener);
-	virtual ~EventTrigger() override;
+	Event();
+	virtual ~Event() override;
 
 	virtual void BeginPlay() override;
 	virtual void Tick() override;
@@ -27,5 +26,4 @@ protected:
 	bool _isStart = false;
 	bool _isRender = false;
 	Vec2Int _size = { 100, 100 };
-	GameObject* _opener = nullptr;
 };

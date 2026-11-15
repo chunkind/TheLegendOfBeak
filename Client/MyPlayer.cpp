@@ -9,7 +9,7 @@
 #include "GameScene.h"
 #include "Arrow.h"
 #include "HitEffect.h"
-#include "EventTrigger.h"
+#include "Event.h"
 
 MyPlayer::MyPlayer()
 {
@@ -45,6 +45,31 @@ void MyPlayer::Render(HDC hdc)
 
 void MyPlayer::TickInput()
 {
+	GameScene* scene = dynamic_cast<GameScene*>(GET(SceneMgr)->GetCurrentScene());
+	if (scene == nullptr)
+		return;
+
+	Vec2Int cellPos = GetCellPos();
+	Event* event = scene->GetEventAt(cellPos);
+	if (event != nullptr) {
+		// 이벤트
+		vector<Actor*> events = scene->_actors[LAYER_EVENT];
+		for (int i = 0; i < events.size(); i++)
+		{
+			Event* event = static_cast<Event*>(events[i]);
+			Vec2 pos = event->GetPos();
+			int posCellPosX = pos.x / 32;
+			int posCellPosY = pos.y / 32;
+			Vec2Int myPos = GetCellPos();
+			if (posCellPosX == myPos.x && posCellPosY == myPos.y) {
+				event->StartEvent();
+				GameObject* opener = scene->GetGameObjectAt({ (int32)(_pos.x / 32), (int32)(_pos.y / 32) });
+				opener->SetState(EVENT);
+			}
+		}
+		return;
+	}
+
 	_keyPressed = true;
 
 	if (GET(InputMgr)->GetButton(KeyType::W))
@@ -81,33 +106,11 @@ void MyPlayer::TickInput()
 
 	// 디버그 모드
 	if (GET(InputMgr)->GetButtonUp(KeyType::P)) {
-		GameScene* scene = dynamic_cast<GameScene*>(GET(SceneMgr)->GetCurrentScene());
-		if (scene == nullptr)
-			return;
-
 		scene->ToggleDebugger();
 	}
 
 	if (GET(InputMgr)->GetButtonDown(KeyType::SpaceBar))
 	{
-		GameScene* scene = dynamic_cast<GameScene*>(GET(SceneMgr)->GetCurrentScene());
-		if (scene == nullptr)
-			return;
-
-		// 이벤트
-		vector<Actor*> events = scene->_actors[LAYER_EVENT];
-		for (int i = 0; i < events.size(); i++)
-		{
-			EventTrigger* event = static_cast<EventTrigger*>(events[i]);
-			Vec2 pos = event->GetPos();
-			int posCellPosX = pos.x / 32;
-			int posCellPosY = pos.y / 32;
-			Vec2Int myPos = GetCellPos();
-			if (posCellPosX == myPos.x && posCellPosY == myPos.y) {
-				event->StartEvent();
-			}
-		}
-
 		if (_weaponType == WeaponType::OBJECT_WEAPON_TYPE_SWORD)
 		{
 			Creature* creature = scene->GetCreatureAt(GetFrontCellPos());
@@ -198,4 +201,14 @@ void MyPlayer::TickMove()
 void MyPlayer::TickSkill()
 {
 	Super::TickSkill();
+}
+
+void MyPlayer::TickEvent()
+{
+	Super::TickEvent();
+}
+
+void MyPlayer::TickDead()
+{
+	Super::TickDead();
 }

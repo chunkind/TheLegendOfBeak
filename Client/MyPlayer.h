@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Player.h"
 
 class MyPlayer : public Player
@@ -19,6 +19,8 @@ private:
 	virtual void TickIdle() override;
 	virtual void TickMove() override;
 	virtual void TickSkill() override;
+	virtual void TickEvent() override;
+	virtual void TickDead() override;
 
 private:
 	bool _keyPressed = false;

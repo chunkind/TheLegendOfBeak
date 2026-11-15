@@ -4,29 +4,23 @@
 #include "InputMgr.h"
 #include "TimeMgr.h"
 #include "ResMgr.h"
-#include "Texture.h"
 #include "Sprite.h"
 #include "Actor.h"
 #include "SpriteActor.h"
 #include "Player.h"
-#include "Flipbook.h"
 #include "UI.h"
-#include "Button.h"
 #include "TilemapActor.h"
 #include "Tilemap.h"
 #include "SoundMgr.h"
-#include "Sound.h"
 #include "Monster.h"
-#include "MyPlayer.h"
 #include "SceneMgr.h"
-#include "TimeMgr.h"
 #include "RectBar.h"
 #include "Core.h"
-#include "Tree.h"
 #include "MiniMap.h"
 #include "StoreNcp.h"
-#include "EventTrigger.h"
 #include "GameResources.h"
+#include "MyPlayer.h"
+#include "Event.h"
 
 GameScene::GameScene()
 {
@@ -133,12 +127,10 @@ void GameScene::Init()
 		AddActor(ncp);
 	}
 
-	GameObject* myPlayer = GET(SceneMgr)->GetMyPlayer();
-
 	// 이벤트 셋팅
 	{
 		Sprite* sprite = GET(ResMgr)->GetSprite(L"MsgBox");
-		EventTrigger* event = new EventTrigger(myPlayer);
+		Event* event = new Event();
 		event->SetPos({ 32 * 17, 32 * 21 });
 		event->SetSprite(sprite);
 		

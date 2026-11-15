@@ -49,4 +49,3 @@ private:
 	unordered_map<wstring, Sound*>		_sounds;
 	unordered_map<wstring, Video*>		_videos;
 };
-

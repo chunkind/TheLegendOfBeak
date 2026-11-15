@@ -1,37 +1,37 @@
 ﻿#include "pch.h"
-#include "EventTrigger.h"
+#include "Event.h"
 #include "Sprite.h"
 #include "Utils.h"
 #include "InputMgr.h"
-#include "GameObject.h"
+#include "Scene.h"
+#include "SceneMgr.h"
+#include "GameScene.h"
 
-EventTrigger::EventTrigger(GameObject* opener)
-	: _opener(opener)
+Event::Event()
 {
 	_layer = LAYER_EVENT;
 }
 
-EventTrigger::~EventTrigger()
+Event::~Event()
 {}
 
-void EventTrigger::BeginPlay()
+void Event::BeginPlay()
 {
 }
 
-void EventTrigger::Tick()
+void Event::Tick()
 {
 	if (_isStart && _isRender)
 	{
 		if (GET(InputMgr)->GetButtonDown(KeyType::SpaceBar))
 		{
 			_isStart = false;
-			//_opener->Set
 		}
 	}
 	
 }
 
-void EventTrigger::Render(HDC hdc)
+void Event::Render(HDC hdc)
 {
 	if (_isStart)
 	{

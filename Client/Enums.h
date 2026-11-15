@@ -49,6 +49,7 @@ using Dir = Protocol::DIR_TYPE;
 #define MOVE	Protocol::OBJECT_STATE_TYPE_MOVE
 #define SKILL	Protocol::OBJECT_STATE_TYPE_SKILL
 #define DEAD	Protocol::OBJECT_STATE_TYPE_DEAD
+#define EVENT	Protocol::OBJECT_STATE_TYPE_EVENT
 
 using ObjectState = Protocol::OBJECT_STATE_TYPE;
 
