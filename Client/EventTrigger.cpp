@@ -3,8 +3,10 @@
 #include "Sprite.h"
 #include "Utils.h"
 #include "InputMgr.h"
+#include "GameObject.h"
 
-EventTrigger::EventTrigger()
+EventTrigger::EventTrigger(GameObject* opener)
+	: _opener(opener)
 {
 	_layer = LAYER_EVENT;
 }
@@ -23,6 +25,7 @@ void EventTrigger::Tick()
 		if (GET(InputMgr)->GetButtonDown(KeyType::SpaceBar))
 		{
 			_isStart = false;
+			//_opener->Set
 		}
 	}
 	

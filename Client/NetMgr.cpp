@@ -1,4 +1,4 @@
-#include "pch.h"
+癤�#include "pch.h"
 #include "NetMgr.h"
 #include "Service.h"
 #include "ThreadManager.h"
@@ -45,7 +45,6 @@ void NetMgr::Update()
 {
 	_service->GetIocpCore()->Dispatch(0);
 
-	// 패킷 서버로 전송
 	SyncToServer();
 }
 

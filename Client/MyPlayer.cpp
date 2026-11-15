@@ -177,7 +177,11 @@ void MyPlayer::TryMove()
 		}
 	}
 
-	GET(NetMgr)->RegisterPacket(ClientPacketHandler::Make_C_Move());
+	if (_dirtyFlag)
+	{
+		GET(NetMgr)->RegisterPacket(ClientPacketHandler::Make_C_Move());
+		_dirtyFlag = false;
+	}
 }
 
 void MyPlayer::TickIdle()

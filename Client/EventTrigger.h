@@ -3,12 +3,13 @@
 #include "Actor.h"
 
 class Sprite;
+class GameObject;
 
 class EventTrigger : public Actor
 {
 	using Super = Actor;
 public:
-	EventTrigger();
+	EventTrigger(GameObject* opener);
 	virtual ~EventTrigger() override;
 
 	virtual void BeginPlay() override;
@@ -26,4 +27,5 @@ protected:
 	bool _isStart = false;
 	bool _isRender = false;
 	Vec2Int _size = { 100, 100 };
+	GameObject* _opener = nullptr;
 };

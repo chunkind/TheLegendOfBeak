@@ -198,10 +198,12 @@ void GameScene::Init()
 		AddActor(ncp);
 	}
 
+	GameObject* myPlayer = GET(SceneMgr)->GetMyPlayer();
+
 	// 이벤트 셋팅
 	{
 		Sprite* sprite = GET(ResMgr)->GetSprite(L"MsgBox");
-		EventTrigger* event = new EventTrigger();
+		EventTrigger* event = new EventTrigger(myPlayer);
 		event->SetPos({ 32 * 17, 32 * 21 });
 		event->SetSprite(sprite);
 		
