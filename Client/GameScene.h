@@ -35,13 +35,7 @@ public:
 	virtual void RemoveActor(Actor* actor) override;
 
 	void LoadMap();
-	void LoadPlayer();
-	void LoadNpc();
-	void LoadMonster();
-	void LoadProjectiles();
-	void LoadEffect();
 	void LoadTilemap();
-
 	void LoadUI();
 
 	void RenderDebugger(HDC hdc);

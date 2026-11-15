@@ -26,6 +26,7 @@
 #include "MiniMap.h"
 #include "StoreNcp.h"
 #include "EventTrigger.h"
+#include "GameResources.h"
 
 GameScene::GameScene()
 {
@@ -55,79 +56,13 @@ void GameScene::Init()
 {
 	PreLoad(GET(Core)->GetHwnd());
 
-	GET(ResMgr)->LoadTexture(L"Stage01", L"Sprite\\Map\\main01.bmp");
-	GET(ResMgr)->LoadTexture(L"Tile", L"Sprite\\Map\\tile.bmp", RGB(255, 0, 255));
-	GET(ResMgr)->LoadTexture(L"Sword", L"Sprite\\Item\\Sword.bmp");
-	GET(ResMgr)->LoadTexture(L"Arrow", L"Sprite\\Item\\Arrow.bmp", RGB(255, 0, 255));
-	GET(ResMgr)->LoadTexture(L"Potion", L"Sprite\\UI\\Mp.bmp");
-	GET(ResMgr)->LoadTexture(L"Player", L"Sprite\\Player\\player.bmp", RGB(255, 0, 255));
-	GET(ResMgr)->LoadTexture(L"StoreNcpIdle", L"Sprite\\Player\\lady001_idle.bmp");
-	GET(ResMgr)->LoadTexture(L"StoreNcpMove", L"Sprite\\Player\\lady001_move.bmp");
-	GET(ResMgr)->LoadTexture(L"Dack", L"Sprite\\Monster\\dack.bmp", RGB(255, 0, 255));
-	GET(ResMgr)->LoadTexture(L"Hit", L"Sprite\\Effect\\Hit.bmp", RGB(0, 0, 0));
-	// UI
-	GET(ResMgr)->LoadTexture(L"Start", L"Sprite\\UI\\Start.bmp");
-	GET(ResMgr)->LoadTexture(L"Edit", L"Sprite\\UI\\Edit.bmp");
-	GET(ResMgr)->LoadTexture(L"Exit", L"Sprite\\UI\\Exit.bmp");
-	GET(ResMgr)->LoadTexture(L"RectBar", L"Sprite\\UI\\ui_hp_mp_bar_a.bmp");
-	GET(ResMgr)->LoadTexture(L"MiniMap", L"Sprite\\UI\\ui_minimap_a.bmp");
-	GET(ResMgr)->LoadTexture(L"MsgBox", L"Sprite\\UI\\ui_massage_box_a.bmp");
-	//Building
-	GET(ResMgr)->LoadTexture(L"PosionShop", L"Sprite\\Building\\posion_shop_a.bmp");
-	GET(ResMgr)->LoadTexture(L"Tree", L"Sprite\\Map\\tree.bmp", RGB(255, 0, 255));
-	GET(ResMgr)->LoadTexture(L"Tree01", L"Sprite\\Map\\tree_01.bmp", RGB(255, 0, 255));
-	
+	// Load resources (textures, sprites, flipbooks, sounds)
+	GameResources::LoadAll();
 
-
-	GET(ResMgr)->CreateSprite(L"Stage01", GET(ResMgr)->GetTexture(L"Stage01"));
-	GET(ResMgr)->CreateSprite(L"TileO", GET(ResMgr)->GetTexture(L"Tile"), 0, 0, 32, 32);
-	GET(ResMgr)->CreateSprite(L"TileX", GET(ResMgr)->GetTexture(L"Tile"), 32, 0, 32, 32);
-	GET(ResMgr)->CreateSprite(L"Start_Off", GET(ResMgr)->GetTexture(L"Start"), 0, 0, 150, 150);
-	GET(ResMgr)->CreateSprite(L"Start_On", GET(ResMgr)->GetTexture(L"Start"), 150, 0, 150, 150);
-	GET(ResMgr)->CreateSprite(L"Edit_Off", GET(ResMgr)->GetTexture(L"Edit"), 0, 0, 150, 150);
-	GET(ResMgr)->CreateSprite(L"Edit_On", GET(ResMgr)->GetTexture(L"Edit"), 150, 0, 150, 150);
-	GET(ResMgr)->CreateSprite(L"Exit_Off", GET(ResMgr)->GetTexture(L"Exit"), 0, 0, 150, 150);
-	GET(ResMgr)->CreateSprite(L"Exit_On", GET(ResMgr)->GetTexture(L"Exit"), 150, 0, 150, 150);
-	GET(ResMgr)->CreateSprite(L"HpBar",		GET(ResMgr)->GetTexture(L"RectBar"), 0, 32 * 0, 32 * 4, 32);
-	GET(ResMgr)->CreateSprite(L"MpBar",		GET(ResMgr)->GetTexture(L"RectBar"), 0, 32 * 1, 32 * 4, 32);
-	GET(ResMgr)->CreateSprite(L"MoneyBar",	GET(ResMgr)->GetTexture(L"RectBar"), 0, 32 * 2, 32 * 4, 32);
-	GET(ResMgr)->CreateSprite(L"MiniMap", GET(ResMgr)->GetTexture(L"MiniMap"), 0, 0, 32 * 8, 32 * 8);
-	GET(ResMgr)->CreateSprite(L"MsgBox", GET(ResMgr)->GetTexture(L"MsgBox"));
-	// Buingding
-	GET(ResMgr)->CreateSprite(L"PosionShopTop", GET(ResMgr)->GetTexture(L"PosionShop"), 0, 0, 32 * 6, 32 * 4);
-	GET(ResMgr)->CreateSprite(L"PosionShopDown", GET(ResMgr)->GetTexture(L"PosionShop"), 32 * 0, 32 * 4, 32 * 6, 32 * 2);
-
-	// 지형지물
-	GET(ResMgr)->CreateSprite(L"TreeDead01", GET(ResMgr)->GetTexture(L"Tree"), 0, 0, 64, 64);
-	GET(ResMgr)->CreateSprite(L"TreeDead02", GET(ResMgr)->GetTexture(L"Tree"), 0, 64, 64, 64);
-	GET(ResMgr)->CreateSprite(L"TreeDead03", GET(ResMgr)->GetTexture(L"Tree"), 0, 64*2, 64, 64);
-	GET(ResMgr)->CreateSprite(L"TreeDead04", GET(ResMgr)->GetTexture(L"Tree"), 0, 64*3, 64, 64);
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Tree");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_TreeDead");
-		fb->SetInfo({ texture, L"FB_TreeDead", {32*2, 32*2}, 0, 4, 0, 1.0f });
-	}
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Tree");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_TreeIdle");
-		fb->SetInfo({ texture, L"FB_TreeIdle", {32*2, 32*2}, 1, 4, 0, 1.0f });
-	}
-
-	// 나무
-	GET(ResMgr)->CreateSprite(L"Tree01", GET(ResMgr)->GetTexture(L"Tree01"), 0, 0, 32 * 4, 32 * 4);
-	
-
+	// 씬에 오브잭트 추가
 	LoadMap();
-	LoadPlayer();
-	LoadNpc();
-	LoadMonster();
-	LoadProjectiles();
-	LoadEffect();
 	LoadTilemap();
 	LoadUI();
-
-	GET(ResMgr)->LoadSound(L"BGM", L"Sound\\BGM.wav");
-	GET(ResMgr)->LoadSound(L"Attack", L"Sound\\Sword.wav");
 
 	//SpawnObjectAtRandomPos<MyPlayer>();
 	//SpawnObjectAtRandomPos<Monster>();
@@ -347,199 +282,6 @@ void GameScene::LoadMap()
 	AddActor(background);
 }
 
-void GameScene::LoadPlayer()
-{
-	// IDLE
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Player");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_IdleUp");
-		fb->SetInfo({ texture, L"FB_IdleUp", {32*2, 32*2}, 0, 6, 0, 0.5f });
-	}
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Player");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_IdleDown");
-		fb->SetInfo({ texture, L"FB_IdleDown", {32*2, 32*2}, 0, 6, 1, 0.5f });
-	}
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Player");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_IdleLeft");
-		fb->SetInfo({ texture, L"FB_IdleLeft", {32*2, 32*2}, 0, 6, 2, 0.5f });
-	}
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Player");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_IdleRight");
-		fb->SetInfo({ texture, L"FB_IdleRight", {32*2, 32*2}, 0, 6, 3, 0.5f });
-	}
-	// MOVE
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Player");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_MoveUp");
-		fb->SetInfo({ texture, L"FB_MoveUp", {32*2, 32 * 2}, 0, 6, 4, 0.5f });
-	}
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Player");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_MoveDown");
-		fb->SetInfo({ texture, L"FB_MoveDown", {32 * 2, 32 * 2}, 0, 6, 5, 0.5f });
-	}
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Player");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_MoveLeft");
-		fb->SetInfo({ texture, L"FB_MoveLeft", {32 * 2, 32 * 2}, 0, 6, 6, 0.5f });
-	}
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Player");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_MoveRight");
-		fb->SetInfo({ texture, L"FB_MoveRight", {32 * 2, 32 * 2}, 0, 6, 7, 0.5f });
-	}
-	// SKILL
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Player");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_AttackUp");
-		fb->SetInfo({ texture, L"FB_AttackUp", {32*2, 32 * 2}, 0, 6, 8, 0.5f, false });
-	}
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Player");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_AttackDown");
-		fb->SetInfo({ texture, L"FB_AttackDown", {32 * 2, 32 * 2}, 0, 6, 9, 0.5f, false });
-	}
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Player");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_AttackLeft");
-		fb->SetInfo({ texture, L"FB_AttackLeft", {32 * 2, 32 * 2}, 0, 6, 10, 0.5f, false });
-	}
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Player");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_AttackRight");
-		fb->SetInfo({ texture, L"FB_AttackRight", {32 * 2, 32 * 2}, 0, 6, 11, 0.5f, false });
-	}
-	// BOW
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Player");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_BowUp");
-		fb->SetInfo({ texture, L"FB_BowUp", {32 * 2, 32 * 2}, 0, 6, 12, 0.5f, false });
-	}
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Player");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_BowDown");
-		fb->SetInfo({ texture, L"FB_BowDown", {32 * 2, 32 * 2}, 0, 6, 13, 0.5f, false });
-	}
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Player");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_BowLeft");
-		fb->SetInfo({ texture, L"FB_BowLeft", {32 * 2, 32 * 2}, 0, 6, 14, 0.5f, false });
-	}
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Player");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_BowRight");
-		fb->SetInfo({ texture, L"FB_BowRight", {32 * 2, 32 * 2}, 0, 6, 15, 0.5f, false });
-	}
-
-}
-
-void GameScene::LoadNpc()
-{
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"StoreNcpIdle");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_StoreNcpIdleUp");
-		fb->SetInfo({ texture, L"FB_StoreNcpIdleUp",{ 64, 64 }, 0, 6, 0, 0.5f });
-	}
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"StoreNcpIdle");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_StoreNcpIdleDown");
-		fb->SetInfo({ texture, L"FB_StoreNcpIdleDown",{ 64, 64 }, 0, 6, 1, 0.5f });
-	}
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"StoreNcpIdle");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_StoreNcpIdleLeft");
-		fb->SetInfo({ texture, L"FB_StoreNcpIdleLeft",{ 64, 64 }, 0, 6, 2, 0.5f });
-	}
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"StoreNcpIdle");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_StoreNcpIdleRight");
-		fb->SetInfo({ texture, L"FB_StoreNcpIdleRight",{ 64, 64 }, 0, 6, 3, 0.5f });
-	}
-
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"StoreNcpMove");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_StoreNcpMoveUp");
-		fb->SetInfo({ texture, L"FB_StoreNcpMoveUp",{ 64, 64 }, 0, 6, 0, 0.5f });
-	}
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"StoreNcpMove");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_StoreNcpMoveDown");
-		fb->SetInfo({ texture, L"FB_StoreNcpMoveDown",{ 64, 64 }, 0, 6, 1, 0.5f });
-	}
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"StoreNcpMove");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_StoreNcpMoveLeft");
-		fb->SetInfo({ texture, L"FB_StoreNcpMoveLeft",{ 64, 64 }, 0, 6, 2, 0.5f });
-	}
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"StoreNcpMove");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_StoreNcpMoveRight");
-		fb->SetInfo({ texture, L"FB_StoreNcpMoveRight",{ 64, 64 }, 0, 6, 3, 0.5f });
-	}
-}
-
-void GameScene::LoadMonster()
-{
-	// MOVE
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Dack");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_SnakeUp");
-		fb->SetInfo({ texture, L"FB_SnakeUp", {32*2, 32 * 2}, 0, 3, 0, 0.5f });
-	}
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Dack");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_SnakeDown");
-		fb->SetInfo({ texture, L"FB_SnakeDown", {32 * 2, 32 * 2}, 0, 3, 1, 0.5f });
-	}
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Dack");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_SnakeLeft");
-		fb->SetInfo({ texture, L"FB_SnakeLeft", {32 * 2, 32 * 2}, 0, 3, 2, 0.5f });
-	}
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Dack");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_SnakeRight");
-		fb->SetInfo({ texture, L"FB_SnakeRight", {32 * 2, 32 * 2}, 0, 3, 3, 0.5f });
-	}
-}
-
-void GameScene::LoadProjectiles()
-{
-	// MOVE
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Arrow");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_ArrowUp");
-		fb->SetInfo({ texture, L"FB_ArrowUp", {32, 32}, 0, 0, 3, 0.5f });
-	}
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Arrow");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_ArrowDown");
-		fb->SetInfo({ texture, L"FB_ArrowDown", {32, 32}, 0, 0, 0, 0.5f });
-	}
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Arrow");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_ArrowLeft");
-		fb->SetInfo({ texture, L"FB_ArrowLeft", {32, 32}, 0, 0, 1, 0.5f });
-	}
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Arrow");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_ArrowRight");
-		fb->SetInfo({ texture, L"FB_ArrowRight", {32, 32}, 0, 0, 2, 0.5f });
-	}
-}
-
-void GameScene::LoadEffect()
-{
-	{
-		Texture* texture = GET(ResMgr)->GetTexture(L"Hit");
-		Flipbook* fb = GET(ResMgr)->CreateFlipbook(L"FB_Hit");
-		fb->SetInfo({ texture, L"FB_Hit", {50, 47}, 0, 5, 0, 0.5f, false });
-	}
-}
-
 void GameScene::LoadTilemap()
 {
 	TilemapActor* actor = new TilemapActor();
@@ -549,7 +291,7 @@ void GameScene::LoadTilemap()
 	_tilemapActor = actor;
 	{
 		auto* tm = GET(ResMgr)->CreateTilemap(L"Tilemap_01");
-		tm->SetMapSize({100, 100});
+		tm->SetMapSize({ 100, 100 });
 		tm->SetTileSize(TILE_SIZE::TILE_SIZEX);
 
 		GET(ResMgr)->LoadTilemap(L"Tilemap_01", L"Tilemap\\Tilemap_01.txt");
@@ -595,7 +337,7 @@ void GameScene::LoadUI()
 	MiniMap* miniMap = new MiniMap();
 	miniMap->BeginPlay();
 	miniMap->SetUIName("MiniMap");
-	miniMap->SetSize({150, 150});
+	miniMap->SetSize({ 150, 150 });
 	miniMap->SetSprite(miniMapSprite);
 	miniMap->SetPos(Vec2(screenWidth - 100, 100));
 
