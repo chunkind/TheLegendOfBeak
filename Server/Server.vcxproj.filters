@@ -32,6 +32,9 @@
     <Filter Include="소스 파일\03. Network\Room">
       <UniqueIdentifier>{f7a98773-b695-40d3-bb5c-858f3b360814}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\02. Objects\Event">
+      <UniqueIdentifier>{a813ea5b-6ce6-432b-8088-49e293af1c93}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Struct.pb.cc">
@@ -76,6 +79,9 @@
     <ClCompile Include="SpawnMgr.cpp">
       <Filter>소스 파일\01. Manager</Filter>
     </ClCompile>
+    <ClCompile Include="EventTrigger.cpp">
+      <Filter>소스 파일\02. Objects\Event</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Struct.pb.h">
@@ -116,6 +122,9 @@
     </ClInclude>
     <ClInclude Include="SpawnMgr.h">
       <Filter>소스 파일\01. Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="EventTrigger.h">
+      <Filter>소스 파일\02. Objects\Event</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

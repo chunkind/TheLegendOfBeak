@@ -4,6 +4,7 @@
 #include "Monster.h"
 #include "GameSession.h"
 #include "CoreUtil.h"
+#include "EventTrigger.h"
 
 GameRoomRef GRoom = make_shared<GameRoom>();
 
@@ -32,6 +33,12 @@ void GameRoom::Init()
 		//monster->info.set_posy(15);
 		AddObject(monster);
 	}
+
+	// 이벤트
+	EventTriggerRef event = GameObject::CreateEventTrigger();
+	event->info.set_posx(17);
+	event->info.set_posy(21);
+	AddObject(event);
 }
 
 void GameRoom::Update()
@@ -42,6 +49,11 @@ void GameRoom::Update()
 	}
 
 	for (auto& item : _monsters)
+	{
+		item.second->Update();
+	}
+
+	for (auto& item : _eventTrigger)
 	{
 		item.second->Update();
 	}
@@ -81,6 +93,12 @@ void GameRoom::EnterRoom(GameSessionRef session)
 			*info = item.second->info;
 		}
 
+		for (auto& item : _eventTrigger)
+		{
+			Protocol::ObjectInfo* info = pkt.add_objects();
+			*info = item.second->info;
+		}
+
 		SendBufferRef sendBuffer = ServerPacketHandler::Make_S_AddObject(pkt);
 		session->Send(sendBuffer);
 	}
@@ -109,6 +127,11 @@ GameObjectRef GameRoom::FindObject(uint64 id)
 	{
 		auto findIt = _monsters.find(id);
 		if (findIt != _monsters.end())
+			return findIt->second;
+	}
+	{
+		auto findIt = _eventTrigger.find(id);
+		if (findIt != _eventTrigger.end())
 			return findIt->second;
 	}
 
@@ -231,6 +254,9 @@ void GameRoom::AddObject(GameObjectRef gameObject)
 	case Protocol::OBJECT_TYPE_MONSTER:
 		_monsters[id] = static_pointer_cast<Monster>(gameObject);
 		break;
+	case Protocol::OBJECT_TYPE_EVENT:
+		_eventTrigger[id] = static_pointer_cast<EventTrigger>(gameObject);
+		break;
 	default:
 		return;
 	}
@@ -262,6 +288,9 @@ void GameRoom::RemoveObject(uint64 id)
 		break;
 	case Protocol::OBJECT_TYPE_MONSTER:
 		_monsters.erase(id);
+		break;
+	case Protocol::OBJECT_TYPE_EVENT:
+		_eventTrigger.erase(id);
 		break;
 	default:
 		return;

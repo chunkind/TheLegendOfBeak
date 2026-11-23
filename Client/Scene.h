@@ -2,7 +2,7 @@
 
 class Actor;
 class Creature;
-class Event;
+class EventTrigger;
 class UI;
 
 class Scene
@@ -22,7 +22,7 @@ public:
 	virtual void RemoveUI(UI* ui);
 
 	Creature* GetCreatureAt(Vec2Int cellPos);
-	Event* GetEventAt(Vec2Int cellPos);
+	EventTrigger* GetEventAt(Vec2Int cellPos);
 
 public:
 	vector<Actor*> _actors[LAYER_MAXCOUNT];

@@ -6,7 +6,7 @@
 #include "SpriteActor.h"
 #include "TimeMgr.h"
 #include "SceneMgr.h"
-#include "Event.h"
+#include "EventTrigger.h"
 
 Scene::Scene()
 {
@@ -114,14 +114,14 @@ Creature* Scene::GetCreatureAt(Vec2Int cellPos)
 	return nullptr;
 }
 
-Event* Scene::GetEventAt(Vec2Int cellPos)
+EventTrigger* Scene::GetEventAt(Vec2Int cellPos)
 {
 	if (cellPos.x < 0 || cellPos.y < 0)
 		return nullptr;
 
 	for (Actor* actor : _actors[LAYER_EVENT])
 	{
-		Event* event = dynamic_cast<Event*>(actor);
+		EventTrigger* event = dynamic_cast<EventTrigger*>(actor);
 		if (event && event->GetCellPos() == cellPos)
 			return event;
 	}

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Tilemap.h"
 
 struct PQNode
@@ -49,6 +49,7 @@ public:
 private:
 	map<uint64, PlayerRef> _players;
 	map<uint64, MonsterRef> _monsters;
+	map<uint64, EventTriggerRef> _eventTrigger;
 	Tilemap _tilemap;
 };
 

@@ -20,7 +20,7 @@
 #include "StoreNcp.h"
 #include "GameResources.h"
 #include "MyPlayer.h"
-#include "Event.h"
+#include "EventTrigger.h"
 
 GameScene::GameScene()
 {
@@ -128,14 +128,14 @@ void GameScene::Init()
 	}
 
 	// 이벤트 셋팅
-	{
+	/*{
 		Sprite* sprite = GET(ResMgr)->GetSprite(L"MsgBox");
 		Event* event = new Event();
-		event->SetPos({ 32 * 17, 32 * 21 });
+		event->SetPos({17, 21});
 		event->SetSprite(sprite);
 		
 		AddActor(event);
-	}
+	}*/
 	
 	Super::Init();
 }
@@ -206,12 +206,22 @@ void GameScene::RenderDebugger(HDC hdc) {
 
 			// 해당 타일이 이동 가능한지 체크 (tile->value != 1이면 이동 가능)
 			bool canGo = CanGo(Vec2Int{ tileX, tileY });
+			bool isEvent = GetEventAt(Vec2Int{ tileX, tileY });
 
 			// 이동 불가 타일 -> 빨간색 반투명 사각형 (alpha=100)
-			if (!canGo) {
+			
+			if (isEvent) {
 				Utils::DrawRectAlpha(hdc,
 					Pos{ x + GPixcelWidth / 2, y + GPixcelHeight / 2 },
-					(int32)GPixcelWidth, (int32)GPixcelHeight, RGB(255, 0, 0), 100);
+					(int32)GPixcelWidth, (int32)GPixcelHeight, RGB(0, 0, 255), 100);
+			}
+			else
+			{
+				if (!canGo) {
+					Utils::DrawRectAlpha(hdc,
+						Pos{ x + GPixcelWidth / 2, y + GPixcelHeight / 2 },
+						(int32)GPixcelWidth, (int32)GPixcelHeight, RGB(255, 0, 0), 100);
+				}
 			}
 
 			// 이동 가능 -> 연두색 글씨, 이동 불가 -> 흰색 글씨
@@ -365,6 +375,17 @@ void GameScene::Handle_S_AddObject(Protocol::S_AddObject& pkt)
 			monster->SetState(info.state());
 			monster->SetName(info.name());
 			monster->info = info;
+		}
+		else if (info.objecttype() == Protocol::OBJECT_TYPE_EVENT)
+		{
+			EventTrigger* event = SpawnObject<EventTrigger>(Vec2Int{ info.posx(), info.posy() });
+			event->SetName(info.name());
+			event->info = info;
+
+			Sprite* sprite = GET(ResMgr)->GetSprite(L"MsgBox");
+			event->SetSprite(sprite);
+
+			//AddActor(event);
 		}
 	}
 }
@@ -559,8 +580,6 @@ bool GameScene::CanGo(Vec2Int cellPos)
 	{
 		// GameObjectType
 		SpriteActor* creature = dynamic_cast<SpriteActor*>(actor);
-		Creature* r = new Creature();
-
 		if (creature)
 		{
 			Vec2 cpos = creature->GetPos();

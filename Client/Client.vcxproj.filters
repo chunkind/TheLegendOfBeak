@@ -284,7 +284,7 @@
     <ClInclude Include="MsgBox.h">
       <Filter>소스 파일\06. UI\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Event.h">
+    <ClInclude Include="EventTrigger.h">
       <Filter>소스 파일\03. Objects\Event</Filter>
     </ClInclude>
   </ItemGroup>
@@ -457,7 +457,7 @@
     <ClCompile Include="MsgBox.cpp">
       <Filter>소스 파일\06. UI\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Event.cpp">
+    <ClCompile Include="EventTrigger.cpp">
       <Filter>소스 파일\03. Objects\Event</Filter>
     </ClCompile>
   </ItemGroup>

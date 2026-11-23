@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Monster.h"
 #include "GameRoom.h"
+#include "EventTrigger.h"
 
 atomic<uint64> GameObject::s_idGenerator = 1;
 
@@ -33,6 +34,16 @@ MonsterRef GameObject::CreateMonster()
 	monster->info.set_name("Monster " + std::to_string(s_idGenerator));
 
 	return monster;
+}
+
+EventTriggerRef GameObject::CreateEventTrigger()
+{
+	EventTriggerRef event = make_shared<EventTrigger>();
+	event->info.set_objectid(s_idGenerator++);
+	event->info.set_objecttype(Protocol::OBJECT_TYPE_EVENT);
+	event->info.set_name("EventTrigger " + std::to_string(s_idGenerator));
+
+	return event;
 }
 
 void GameObject::SetState(ObjectState state, bool broadcast)

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "UI.h"
 
 class Sprite;
@@ -9,7 +9,6 @@ enum ButtonState
 	//BS_Hovered,
 	BS_Pressed,
 	BS_Clicked,
-	// ...
 	BS_MaxCount
 };
 
@@ -35,7 +34,7 @@ protected:
 	Sprite* _currentSprite = nullptr;
 	Sprite* _sprites[BS_MaxCount] = {};
 	ButtonState _state = BS_Default;
-	// ...
+
 	float _sumTime = 0.f;
 
 public:
@@ -48,7 +47,6 @@ public:
 			};
 	}
 
-	// ÇÔ¼ö Æ÷ÀÎÅÍ + ÇÔ¼ö °´Ã¼
 	std::function<void(void)> _onClick = nullptr;
 };
 

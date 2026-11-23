@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "CorePch.h"
 
@@ -9,6 +9,7 @@ using GameObjectRef = std::shared_ptr<class GameObject>;
 using CreatureRef = std::shared_ptr<class Creature>;
 using PlayerRef = std::shared_ptr<class Player>;
 using MonsterRef = std::shared_ptr<class Monster>;
+using EventTriggerRef = std::shared_ptr<class EventTrigger>;
 
 #include "Enum.pb.h"
 using Dir = Protocol::DIR_TYPE;

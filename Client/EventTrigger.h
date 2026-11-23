@@ -4,12 +4,12 @@
 
 class Sprite;
 
-class Event : public GameObject
+class EventTrigger : public GameObject
 {
 	using Super = GameObject;
 public:
-	Event();
-	virtual ~Event() override;
+	EventTrigger();
+	virtual ~EventTrigger() override;
 
 	virtual void BeginPlay() override;
 	virtual void Tick() override;
@@ -21,7 +21,11 @@ public:
 	void SetSize(Vec2Int size) { _size = size; }
 	Vec2Int GetSize() { return _size; }
 
+	void SetOpener(GameObject* opener) { _opener = opener; }
+	GameObject* GetOpener() { return _opener; }
+
 protected:
+	GameObject* _opener = nullptr;
 	Sprite* _sprite = nullptr;
 	bool _isStart = false;
 	bool _isRender = false;

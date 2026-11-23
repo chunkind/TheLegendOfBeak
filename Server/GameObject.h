@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 class Player;
 class Monster;
@@ -13,6 +13,7 @@ public:
 
 	static PlayerRef CreatePlayer();
 	static MonsterRef CreateMonster();
+	static EventTriggerRef CreateEventTrigger();
 
 	void SetState(ObjectState state, bool broadcast = false);
 	void SetDir(Dir dir, bool broadcast = false);
