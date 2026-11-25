@@ -28,7 +28,7 @@ public:
 
 protected:
 	bool	_visible = true;
-	string _uiName = "";
+	string	_uiName = "";
 	Vec2	_pos = { 400, 300 };
 	Vec2Int _size = { 150, 150 };
 

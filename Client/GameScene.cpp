@@ -22,6 +22,7 @@
 #include "MyPlayer.h"
 #include "EventTrigger.h"
 #include "ShopUI.h"
+#include "Inven.h"
 
 GameScene::GameScene()
 {
@@ -349,11 +350,15 @@ void GameScene::LoadUI()
 	_shopUI->SetUIName("ShopUI");
 	_shopUI->SetPos(Vec2(GWinSizeX / 2, GWinSizeY / 2 - 20));
 
+	Inven* inven = new Inven();
+
+
 	AddUI(hpBar);
 	AddUI(mpBar);
 	AddUI(mnBar);
 	AddUI(miniMap);
 	AddUI(_shopUI);
+	AddUI(inven);
 }
 
 void GameScene::Handle_S_AddObject(Protocol::S_AddObject& pkt)
