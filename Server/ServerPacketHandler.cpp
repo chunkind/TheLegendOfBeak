@@ -29,6 +29,9 @@ void ServerPacketHandler::HandlePacket(GameSessionRef session, BYTE* buffer, int
 	case C_ObjectWeaponChange:
 		Handle_C_ObjectWeaponChange(session, buffer, len);
 		break;
+	case C_Buy:
+		Handle_C_Buy(session, buffer, len);
+		break;
 	default:
 		break;
 	}
@@ -107,6 +110,19 @@ void ServerPacketHandler::Handle_C_ObjectWeaponChange(GameSessionRef session, BY
 	GameRoomRef room = session->gameRoom.lock();
 	if (room)
 		room->Handle_C_ObjectWeaponChange(pkt);
+}
+
+void ServerPacketHandler::Handle_C_Buy(GameSessionRef session, BYTE* buffer, int32 len)
+{
+	PacketHeader* header = (PacketHeader*)buffer;
+	uint16 size = header->size;
+
+	Protocol::C_Buy pkt;
+	pkt.ParseFromArray(&header[1], size - sizeof(PacketHeader));
+
+	GameRoomRef room = session->gameRoom.lock();
+	if (room)
+		room->Handle_C_Buy(session, pkt);
 }
 
 
@@ -204,4 +220,14 @@ SendBufferRef ServerPacketHandler::Make_S_ObjectWeaponChange(int32 objectId, Pro
 	pkt.set_state(type);
 
 	return MakeSendBuffer(pkt, S_ObjectWeaponChange);
+}
+
+SendBufferRef ServerPacketHandler::Make_S_Buy(bool success, Protocol::ITEM_TYPE itemType, int32 money)
+{
+	Protocol::S_Buy pkt;
+	pkt.set_success(success);
+	pkt.set_itemtype(itemType);
+	pkt.set_money(money);
+
+	return MakeSendBuffer(pkt, S_Buy);
 }

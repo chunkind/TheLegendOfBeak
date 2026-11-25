@@ -33,6 +33,7 @@ public:
 	void Handle_C_RemoveObject(Protocol::C_RemoveObject& pkt);
 	void Handle_C_Attack_Arrow(Protocol::C_Attack_Arrow& pkt);
 	void Handle_C_ObjectWeaponChange(Protocol::A_ObjectWeaponChange& pkt);
+	void Handle_C_Buy(GameSessionRef session, Protocol::C_Buy& pkt);
 
 public:
 	void AddObject(GameObjectRef gameObject);

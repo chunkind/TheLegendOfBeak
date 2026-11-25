@@ -21,6 +21,7 @@
 #include "GameResources.h"
 #include "MyPlayer.h"
 #include "EventTrigger.h"
+#include "ShopUI.h"
 
 GameScene::GameScene()
 {
@@ -343,10 +344,16 @@ void GameScene::LoadUI()
 	miniMap->SetSprite(miniMapSprite);
 	miniMap->SetPos(Vec2(screenWidth - 100, 100));
 
+	// 상점 (처음엔 숨김, EventTrigger가 연다)
+	_shopUI = new ShopUI();
+	_shopUI->SetUIName("ShopUI");
+	_shopUI->SetPos(Vec2(GWinSizeX / 2, GWinSizeY / 2 - 20));
+
 	AddUI(hpBar);
 	AddUI(mpBar);
 	AddUI(mnBar);
 	AddUI(miniMap);
+	AddUI(_shopUI);
 }
 
 void GameScene::Handle_S_AddObject(Protocol::S_AddObject& pkt)
@@ -384,6 +391,12 @@ void GameScene::Handle_S_AddObject(Protocol::S_AddObject& pkt)
 
 			Sprite* sprite = GET(ResMgr)->GetSprite(L"MsgBox");
 			event->SetSprite(sprite);
+
+			// 상점 목록 (일단 하드코딩)
+			event->SetShop(L"포션 상점", {
+				{ Protocol::ITEM_TYPE_HP_POTION, L"HP 포션", 50, L"HP를 50 회복합니다." },
+				{ Protocol::ITEM_TYPE_MP_POTION, L"MP 포션", 50, L"MP를 50 회복합니다." },
+			});
 
 			//AddActor(event);
 		}

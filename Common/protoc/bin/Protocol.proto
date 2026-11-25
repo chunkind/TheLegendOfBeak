@@ -73,3 +73,15 @@ message A_ObjectWeaponChange
 	uint64 objectId = 1;
 	OBJECT_WEAPON_TYPE state = 2;
 }
+
+message C_Buy
+{
+	ITEM_TYPE itemType = 1;
+}
+
+message S_Buy
+{
+	bool success = 1;
+	ITEM_TYPE itemType = 2;
+	int32 money = 3;
+}

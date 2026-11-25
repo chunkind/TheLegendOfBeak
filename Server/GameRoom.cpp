@@ -15,7 +15,6 @@ GameRoom::GameRoom()
 
 GameRoom::~GameRoom()
 {
-
 }
 
 void GameRoom::Init()
@@ -238,6 +237,43 @@ void GameRoom::Handle_C_ObjectWeaponChange(Protocol::A_ObjectWeaponChange& pkt)
 
 	SendBufferRef sendBuffer = ServerPacketHandler::Make_S_ObjectWeaponChange(objectId, weaponType);
 	Broadcast(sendBuffer);
+}
+
+namespace
+{
+	// 상점 판매 가격 (서버가 기준). 0 이하면 판매하지 않는 아이템
+	int32 GetItemPrice(Protocol::ITEM_TYPE itemType)
+	{
+		switch (itemType)
+		{
+		case Protocol::ITEM_TYPE_HP_POTION:	return 50;
+		case Protocol::ITEM_TYPE_MP_POTION:	return 50;
+		default:							return 0;
+		}
+	}
+}
+
+void GameRoom::Handle_C_Buy(GameSessionRef session, Protocol::C_Buy& pkt)
+{
+	PlayerRef player = session->player.lock();
+	if (player == nullptr)
+		return;
+
+	const Protocol::ITEM_TYPE itemType = pkt.itemtype();
+	const int32 price = GetItemPrice(itemType);
+	const int32 money = player->info.money();
+
+	bool success = false;
+	if (price > 0 && money >= price)
+	{
+		player->info.set_money(money - price);
+		success = true;
+		// TODO: 인벤토리에 아이템 지급
+	}
+
+	// 구매 결과는 요청한 플레이어에게만
+	SendBufferRef sendBuffer = ServerPacketHandler::Make_S_Buy(success, itemType, player->info.money());
+	session->Send(sendBuffer);
 }
 
 void GameRoom::AddObject(GameObjectRef gameObject)

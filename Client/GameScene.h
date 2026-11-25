@@ -78,11 +78,14 @@ public:
 	GameObject* GetGameObjectAt(Vec2Int cellPos);
 	void ToggleDebugger();
 
+	class ShopUI* GetShopUI() { return _shopUI; }
+
 private:
 	void TickMonsterSpawn();
 
 	const int32 DESIRED_COUNT = 1;
 	class TilemapActor* _tilemapActor = nullptr;
+	class ShopUI* _shopUI = nullptr;	// 소유는 Scene::_uis (Scene 소멸자에서 삭제)
 	int32 _monsterCount = 0;
 	bool isDebugger = false;
 };

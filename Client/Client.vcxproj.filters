@@ -224,6 +224,9 @@
     <ClInclude Include="RectBar.h">
       <Filter>소스 파일\06. UI\Game</Filter>
     </ClInclude>
+    <ClInclude Include="ShopUI.h">
+      <Filter>소스 파일\06. UI\Game</Filter>
+    </ClInclude>
     <ClInclude Include="Core.h">
       <Filter>소스 파일\00. Main</Filter>
     </ClInclude>
@@ -395,6 +398,9 @@
       <Filter>소스 파일\03. Objects</Filter>
     </ClCompile>
     <ClCompile Include="RectBar.cpp">
+      <Filter>소스 파일\06. UI\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopUI.cpp">
       <Filter>소스 파일\06. UI\Game</Filter>
     </ClCompile>
     <ClCompile Include="Core.cpp">

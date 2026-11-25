@@ -17,6 +17,7 @@ public:
 	static void Handle_C_RemoveObject(GameSessionRef session, BYTE* buffer, int32 len);
 	static void Handle_C_Attack_Arrow(GameSessionRef session, BYTE* buffer, int32 len);
 	static void Handle_C_ObjectWeaponChange(GameSessionRef session, BYTE* buffer, int32 len);
+	static void Handle_C_Buy(GameSessionRef session, BYTE* buffer, int32 len);
 
 	// 보내기
 	static SendBufferRef Make_S_TEST(uint64 id, uint32 hp, uint16 attack, vector<BuffData> buffs);
@@ -28,6 +29,7 @@ public:
 	static SendBufferRef Make_S_Attack(const Protocol::ObjectInfo& info);
 	static SendBufferRef Make_S_Attack_Arrow(const Protocol::S_Attack_Arrow& info);
 	static SendBufferRef Make_S_ObjectWeaponChange(int32 objectId, Protocol::OBJECT_WEAPON_TYPE state);
+	static SendBufferRef Make_S_Buy(bool success, Protocol::ITEM_TYPE itemType, int32 money);
 
 	template<typename T>
 	static SendBufferRef MakeSendBuffer(T& pkt, uint16 pktId)

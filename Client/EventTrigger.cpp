@@ -21,15 +21,57 @@ void EventTrigger::BeginPlay()
 
 void EventTrigger::Tick()
 {
+	// 1단계: 대사 출력 중 -> Space 누르면 대화창 닫고 상점 열기
 	if (_isStart && _isRender)
 	{
 		if (GET(InputMgr)->GetButtonDown(KeyType::SpaceBar))
 		{
 			_isStart = false;
-			_opener->SetState(IDLE);
+
+			if (OpenShop() == false)
+				EndEvent();
+		}
+		return;
+	}
+
+	// 2단계: 상점 열림 -> 상점창이 닫히면 이벤트 종료
+	if (_isShopOpen)
+	{
+		GameScene* scene = dynamic_cast<GameScene*>(GET(SceneMgr)->GetCurrentScene());
+		ShopUI* shopUI = scene ? scene->GetShopUI() : nullptr;
+
+		if (shopUI == nullptr || shopUI->IsOpen() == false)
+		{
+			_isShopOpen = false;
+			EndEvent();
 		}
 	}
-	
+}
+
+bool EventTrigger::OpenShop()
+{
+	if (_shopItems.empty())
+		return false;
+
+	GameScene* scene = dynamic_cast<GameScene*>(GET(SceneMgr)->GetCurrentScene());
+	if (scene == nullptr)
+		return false;
+
+	ShopUI* shopUI = scene->GetShopUI();
+	if (shopUI == nullptr)
+		return false;
+
+	shopUI->Open(_shopTitle, _shopItems);
+	_isShopOpen = true;
+	return true;
+}
+
+void EventTrigger::EndEvent()
+{
+	if (_opener)
+		_opener->SetState(IDLE);
+
+	_opener = nullptr;
 }
 
 void EventTrigger::Render(HDC hdc)

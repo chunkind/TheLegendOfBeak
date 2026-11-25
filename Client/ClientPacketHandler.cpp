@@ -10,6 +10,7 @@
 #include "Scene.h"
 #include "Arrow.h"
 #include "Player.h"
+#include "ShopUI.h"
 
 /******* Server -> Client *******/
 
@@ -45,6 +46,9 @@ void ClientPacketHandler::HandlePacket(ServerSessionRef session, BYTE* buffer, i
 		break;
 	case S_ObjectWeaponChange:
 		Handle_S_ObjectWeaponChange(session, buffer, len);
+		break;
+	case S_Buy:
+		Handle_S_Buy(session, buffer, len);
 		break;
 	default:
 		break;
@@ -250,6 +254,24 @@ void ClientPacketHandler::Handle_S_ObjectWeaponChange(ServerSessionRef session, 
 	}
 }
 
+void ClientPacketHandler::Handle_S_Buy(ServerSessionRef session, BYTE* buffer, int32 len)
+{
+	PacketHeader* header = (PacketHeader*)buffer;
+	uint16 size = header->size;
+
+	Protocol::S_Buy pkt;
+	pkt.ParseFromArray(&header[1], size - sizeof(PacketHeader));
+
+	// 서버가 확정한 골드로 갱신
+	MyPlayer* myPlayer = GET(SceneMgr)->GetMyPlayer();
+	if (myPlayer)
+		myPlayer->info.set_money(pkt.money());
+
+	GameScene* scene = GET(SceneMgr)->GetGameScene();
+	if (scene && scene->GetShopUI())
+		scene->GetShopUI()->OnBuyResult(pkt.success(), pkt.itemtype());
+}
+
 
 /******* Client -> Server *******/
 
@@ -316,4 +338,12 @@ SendBufferRef ClientPacketHandler::Make_C_ObjectWeaponChange(uint64 objectId, Pr
 	pkt.set_state(type);
 
 	return MakeSendBuffer(pkt, C_ObjectWeaponChange);
+}
+
+SendBufferRef ClientPacketHandler::Make_C_Buy(Protocol::ITEM_TYPE itemType)
+{
+	Protocol::C_Buy pkt;
+	pkt.set_itemtype(itemType);
+
+	return MakeSendBuffer(pkt, C_Buy);
 }

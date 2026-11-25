@@ -22,7 +22,7 @@ namespace _pbi = _pb::internal;
 
 namespace Protocol {
 }  // namespace Protocol
-static const ::_pb::EnumDescriptor* file_level_enum_descriptors_Enum_2eproto[5];
+static const ::_pb::EnumDescriptor* file_level_enum_descriptors_Enum_2eproto[6];
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Enum_2eproto = nullptr;
 const uint32_t TableStruct_Enum_2eproto::offsets[1] = {};
 static constexpr ::_pbi::MigrationSchema* schemas = nullptr;
@@ -44,11 +44,13 @@ const char descriptor_table_protodef_Enum_2eproto[] PROTOBUF_SECTION_VARIABLE(pr
   "_RIGHT\020\003*\211\001\n\022OBJECT_WEAPON_TYPE\022\033\n\027OBJEC"
   "T_WEAPON_TYPE_NONE\020\000\022\034\n\030OBJECT_WEAPON_TY"
   "PE_SWORD\020\001\022\034\n\030OBJECT_WEAPON_TYPE_STAFF\020\002"
-  "\022\032\n\026OBJECT_WEAPON_TYPE_BOW\020\003b\006proto3"
+  "\022\032\n\026OBJECT_WEAPON_TYPE_BOW\020\003*Q\n\tITEM_TYP"
+  "E\022\022\n\016ITEM_TYPE_NONE\020\000\022\027\n\023ITEM_TYPE_HP_PO"
+  "TION\020\001\022\027\n\023ITEM_TYPE_MP_POTION\020\002b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Enum_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Enum_2eproto = {
-    false, false, 636, descriptor_table_protodef_Enum_2eproto,
+    false, false, 719, descriptor_table_protodef_Enum_2eproto,
     "Enum.proto",
     &descriptor_table_Enum_2eproto_once, nullptr, 0, 0,
     schemas, file_default_instances, TableStruct_Enum_2eproto::offsets,
@@ -137,6 +139,21 @@ bool OBJECT_WEAPON_TYPE_IsValid(int value) {
     case 1:
     case 2:
     case 3:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ITEM_TYPE_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
+  return file_level_enum_descriptors_Enum_2eproto[5];
+}
+bool ITEM_TYPE_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
       return true;
     default:
       return false;

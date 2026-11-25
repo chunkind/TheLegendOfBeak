@@ -46,7 +46,10 @@ void Scene::Update()
 			actor->Tick();
 
 	for (UI* ui : _uis)
-		ui->Tick();
+	{
+		if (ui->IsVisible())
+			ui->Tick();
+	}
 }
 
 void Scene::Render(HDC hdc)
@@ -62,7 +65,10 @@ void Scene::Render(HDC hdc)
 			actor->Render(hdc);
 
 	for (UI* ui : _uis)
-		ui->Render(hdc);
+	{
+		if (ui->IsVisible())
+			ui->Render(hdc);
+	}
 }
 
 void Scene::AddActor(Actor* actor)

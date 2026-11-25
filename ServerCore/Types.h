@@ -54,5 +54,8 @@ enum
 	S_Attack_Arrow = 15,
 
 	C_ObjectWeaponChange = 16,
-	S_ObjectWeaponChange = 17
+	S_ObjectWeaponChange = 17,
+
+	C_Buy = 18,
+	S_Buy = 19
 };
