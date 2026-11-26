@@ -1,7 +1,8 @@
-#pragma once
+﻿#pragma once
 #include "UI.h"
 
 class Sprite;
+class TopPanel;
 
 class Panel : public UI
 {
@@ -14,10 +15,12 @@ public:
 	virtual void Tick();
 	virtual void Render(HDC hdc);
 
+	void		AddHeader(TopPanel* header) { _header = header; }
 	void		AddChild(UI* ui);
 	bool		RemoveChild(UI* ui);
 
 private:
-	vector<UI*> _children;
+	TopPanel*		_header		= nullptr;
+	vector<UI*>		_children;
 };
 

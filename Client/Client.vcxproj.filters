@@ -293,6 +293,9 @@
     <ClInclude Include="Inven.h">
       <Filter>소스 파일\06. UI\Game</Filter>
     </ClInclude>
+    <ClInclude Include="TopPanel.h">
+      <Filter>소스 파일\06. UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -471,6 +474,9 @@
     </ClCompile>
     <ClCompile Include="Inven.cpp">
       <Filter>소스 파일\06. UI\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="TopPanel.cpp">
+      <Filter>소스 파일\06. UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
